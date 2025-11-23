@@ -13,6 +13,7 @@ services:
       - "8554:8554"      # RTSP
       - "8889:8889"      # WebRTC API
       - "8189:8189/udp"  # WebRTC ICE/UDP
+      - "9997:9997"      # API
     volumes:
       - ./mediamtx.yml:/mediamtx.yml:ro
     networks:

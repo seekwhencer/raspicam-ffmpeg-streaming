@@ -1,7 +1,7 @@
 import express from "express";
 
-
 import Events from './EventEmitter.js';
+import MediamtxProxy from "./MediamtxProxy.js";
 
 export default class Server extends Events {
     constructor(app) {
@@ -15,6 +15,25 @@ export default class Server extends Events {
         this.engine = express();
         this.engine.use(express.json());
         this.engine.use(express.static(this.publicDir));
+
+        // the mediamtx api proxy
+        this.mediamtxProxy = new MediamtxProxy(this, {
+
+            targetBaseUrl: "http://mediamtx:9997/v3",
+            apiUser: false,
+            apiPassword: false,
+
+            // optional: eigene Auth (JWT, API-Key, whatever)
+            beforeProxy: (req, res) => {
+                /*if (req.headers["x-api-key"] !== "meinkey") {
+                    res.status(401).json({ error: "Unauthorized" });
+                    return false;
+                }*/
+                return true;
+            }
+        });
+
+        this.engine.use('/mediamtx/v1', this.mediamtxProxy.getRouter());
     }
 
     async run() {

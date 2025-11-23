@@ -8,6 +8,8 @@ export default class Video extends Events {
         super();
         this.streams = streams;
 
+        this.debug = false;
+
         this.reconnect_delay = 2000;
         this.retry_probe_delay = 2000;
         this.bin = '/usr/local/bin/ffmpeg';
@@ -32,7 +34,7 @@ export default class Video extends Events {
         this.process = false;
 
         this.on('data', chunk => this.stat(chunk));
-        this.on('stat', () => console.log('VIDEO STATS', this.name, `FRAME ${this.stats.frame}`, `TIME ${this.stats.time}`, `SPEED ${this.stats.speed}`));
+        //this.on('stat', () => console.log('VIDEO STATS', this.name, `FRAME ${this.stats.frame}`, `TIME ${this.stats.time}`, `SPEED ${this.stats.speed}`));
 
         this.on('disconnected', async () => {
             console.log('DISCONNECTED');
