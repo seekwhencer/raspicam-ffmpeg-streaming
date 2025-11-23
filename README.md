@@ -28,6 +28,7 @@ docker compose build --no-cache
 ```
 
 ## 🡆 Configure
+### Webcams
 - create a folder `data/`
 - place `json` files in there. name it like you want.json.
 - one file for one camera: `cam1.json` for example
@@ -44,6 +45,19 @@ docker compose build --no-cache
   "bitrate": "3M"
 }
 ```
+
+### Mediamtx
+- duplicate mediamtx configuration
+```bash
+    cp mediamtx.default.yml mediamtx.yml
+```
+- edit `mediamtx.yml` if needed (default ports are fine)
+### Environment
+- duplicate `.env` configuration
+```bash
+    cp .env.default .env
+```
+- edit `.env` if needed (default ports are fine)
 
 ## 🡆 Run
 - mediamtx server
