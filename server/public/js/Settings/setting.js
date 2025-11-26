@@ -2,24 +2,29 @@ import EventEmitter from "../event_emitter.js";
 import DataProxy from "../data_proxy.js";
 
 export default class Setting extends EventEmitter {
-    constructor(target = {}) {
+    constructor(settings, target = {}) {
         super();
+
+        this.settings = settings;
         this.data = new DataProxy(target, this, false);
 
-        //this.data.on('create', (prop, value) => this.emit('create', prop, value));
-        //this.data.on('update', (prop, value) => this.emit('update', prop, value));
-        //this.data.on('delete', (prop, value) => this.emit('delete', prop, value));
+        this.data.on('create', (prop, value) => this.emit('create', prop, value));
+        this.data.on('update', (prop, value) => this.emit('update', prop, value));
+        this.data.on('delete', (prop, value) => this.emit('delete', prop, value));
 
         this.on('create', (prop, value) => {
-            console.log('>>> CREATED +', this.constructor.name.padEnd(20, '.'), prop.padEnd(30, '.'), (this.getType(value)).padEnd(10, '.'), value);
+            //console.log('>>> CREATED +', this.constructor.name.padEnd(20, '.'), prop.padEnd(30, '.'), (this.getType(value)).padEnd(10, '.'), value);
+            this.settings.emit('create', prop, value);
         });
 
         this.on('update', (prop, value) => {
-            console.log('>>> UPDATED >', this.constructor.name.padEnd(20, '.'), prop.padEnd(30, '.'), (this.getType(value)).padEnd(10, '.'), value);
+            //console.log('>>> UPDATED >', this.constructor.name.padEnd(20, '.'), prop.padEnd(30, '.'), (this.getType(value)).padEnd(10, '.'), value);
+            this.settings.emit('update', prop, value);
         });
 
         this.on('delete', (prop) => {
-            console.log('>>> DELETED !', this.constructor.name.padEnd(20, '.'), prop.padEnd(30, '.'));
+            //console.log('>>> DELETED !', this.constructor.name.padEnd(20, '.'), prop.padEnd(30, '.'));
+            this.settings.emit('delete', prop);
         });
     }
 

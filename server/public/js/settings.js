@@ -45,6 +45,7 @@ export default class Settings extends EventEmitter {
 
         //
         this.on('loaded', () => this.create());
+        this.on('created', () => this.created = true);
 
         //
         this.on('loaded-general', () => console.log(this.label, 'LOADED GENERAL'));

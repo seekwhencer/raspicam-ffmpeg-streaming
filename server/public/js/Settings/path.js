@@ -2,8 +2,8 @@ import Setting from "./setting.js";
 
 export default class PathSettings extends Setting {
     constructor(settings) {
-        super();
-        this.settings = settings;
+        super(settings);
+
         this.config = this.settings.config;
         this.source = this.config.path;
         this.fields = [
@@ -125,6 +125,10 @@ export default class PathSettings extends Setting {
             rpiCameraSoftwareH264Profile: ['baseline', 'main', 'high'],
             rpiCameraSoftwareH264Level: ['4.0', '4.1', '4.2']
         };
+
+        this.on('create', (prop, value) => this.settings.created ? this.settings.setPathDefaultsConfig() : null);
+        this.on('update', (prop, value) => this.settings.created ? this.settings.setPathDefaultsConfig() : null);
+        this.on('delete', (prop) => this.settings.created ? this.settings.setPathDefaultsConfig() : null);
 
         // set the data
         this.setFields();

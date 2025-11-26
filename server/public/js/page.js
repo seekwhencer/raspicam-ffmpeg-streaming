@@ -14,17 +14,19 @@ export default class Page extends EventEmitter {
         // settings
         this.settings = new Settings(this);
 
-        //setTimeout(() => this.settings.general.logLevel = 'debug', 2000);
-        //setTimeout(() => this.settings.general.logLevel = 'info', 4000);
+        setTimeout(() => this.settings.general.logLevel = 'debug', 2000);
+        setTimeout(() => this.settings.general.logLevel = 'info', 4000);
 
-        this.settings.on('created', () => {
+        this.settings.on('created', async () => {
             console.log(this.label, 'CREATED GLOBAL CONFIG', this.settings.globalConfig);
-            this.render();
+            await this.settings.setGlobalConfig();
+            await this.settings.setPathDefaultsConfig();
+            await this.settings.setPathConfig('cam1');
 
-            setTimeout(() => this.settings.setGlobalConfig(), 500);
-            setTimeout(() => this.settings.setPathDefaultsConfig(), 1000);
-            setTimeout(() => this.settings.setPathConfig('cam1'), 2000);
+            this.render();
         });
+
+
 
         this.overview = new Overview(this);
         this.sources = new Sources(this);
