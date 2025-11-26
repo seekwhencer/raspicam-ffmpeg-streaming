@@ -22,6 +22,8 @@ export default class Page extends EventEmitter {
             this.render();
 
             setTimeout(() => this.settings.setGlobalConfig(), 500);
+            setTimeout(() => this.settings.setPathDefaultsConfig(), 1000);
+            setTimeout(() => this.settings.setPathConfig('cam1'), 2000);
         });
 
         this.overview = new Overview(this);

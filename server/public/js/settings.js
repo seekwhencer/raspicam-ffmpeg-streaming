@@ -146,11 +146,33 @@ export default class Settings extends EventEmitter {
     }
 
     async setPathDefaultsConfig() {
-        // to be implemented
+        const res = await fetch(this.savePathDefaultsUrl, {
+            method: 'PATCH',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(this.path)
+        });
+
+        if (res.ok) {
+            console.log(this.label, 'SET PATH DEFAULTS CONFIG OK');
+        } else {
+            console.log(this.label, 'SET PATH DEFAULTS CONFIG ERROR', res.error);
+        }
     }
 
-    async setPathsConfig() {
-        // to be implemented
+    async setPathConfig(pathName) {
+        const pathConfig = this.paths[pathName];
+        const url = `${this.updatePathUrl}/${pathName}`;
+        const res = await fetch(url, {
+            method: 'PATCH',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(pathConfig)
+        });
+
+        if (res.ok) {
+            console.log(this.label, `SET PATH (${pathName}) CONFIG OK`);
+        } else {
+            console.log(this.label, `SET PATH (${pathName}) CONFIG ERROR`, res.error);
+        }
     }
 
     get globalConfig() {
