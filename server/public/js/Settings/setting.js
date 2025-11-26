@@ -2,10 +2,9 @@ import EventEmitter from "../event_emitter.js";
 import DataProxy from "../data_proxy.js";
 
 export default class Setting extends EventEmitter {
-    constructor(page) {
+    constructor(target = {}) {
         super();
-        this.page = page;
-        this.data = new DataProxy({}, this, false);
+        this.data = new DataProxy(target, this, false);
 
         //this.data.on('create', (prop, value) => this.emit('create', prop, value));
         //this.data.on('update', (prop, value) => this.emit('update', prop, value));

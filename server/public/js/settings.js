@@ -21,16 +21,26 @@ export default class Settings extends EventEmitter {
         super();
         this.page = page;
 
-        this.generalSettingsUrl = '/mediamtx/config/global/get';
-        this.pathDefaultsUrl = '/mediamtx/config/pathdefaults/get';
-        this.pathsListUrl = '/mediamtx/config/paths/list';
+        this.baseUrl = '/mediamtx/config';
+        this.generalSettingsUrl = `${this.baseUrl}/global/get`;
+        this.pathDefaultsUrl = `${this.baseUrl}/pathdefaults/get`;
+        this.pathsListUrl = `${this.baseUrl}/paths/list`;
+
+        this.saveGeneralSettingsUrl = `${this.baseUrl}/global/patch`;
+        this.savePathDefaultsUrl = `${this.baseUrl}/pathdefaults/patch`;
+
+        this.pathBaseUrl = `${this.baseUrl}/paths`;
+        this.addPathUrl = `${this.pathBaseUrl}/add`;
+        this.updatePathUrl = `${this.pathBaseUrl}/patch`;
+        this.replacePathUrl = `${this.pathBaseUrl}/replace`;
+        this.deletePathUrl = `${this.pathBaseUrl}/delete`;
 
         this.config = {
             general: new DataProxy({}, this, false),
             path: new DataProxy({}, this, false),
             paths: new DataProxy({}, this, false),
             user: new DataProxy({}, this, false),
-            users: new DataProxy({}, this, false),
+            users: new DataProxy([], this, false),
         };
 
         //
@@ -95,11 +105,12 @@ export default class Settings extends EventEmitter {
         this.emit('created');
     }
 
+    // complete
     getConfig() {
         return {
             ...this.general,
             ...this.auth,
-            authInternalUsers: {...this.users},
+            authInternalUsers: this.users,
             ...this.api,
             ...this.pprof,
             ...this.playback,
@@ -113,4 +124,47 @@ export default class Settings extends EventEmitter {
         }
     }
 
+    async setGlobalConfig() {
+        const res = await fetch(this.saveGeneralSettingsUrl, {
+            method: 'PATCH',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(this.globalConfig)
+        });
+
+        if (res.ok) {
+            console.log(this.label, 'SET GLOBAL CONFIG OK');
+        } else {
+            console.log(this.label, 'SET CONFIG ERROR', res.error);
+        }
+    }
+
+    async setPathDefaultsConfig() {
+        // to be implemented
+    }
+
+    async setPathsConfig() {
+        // to be implemented
+    }
+
+    get globalConfig() {
+        const config = {
+            ...this.general,
+            ...this.auth,
+            ...this.api,
+            ...this.pprof,
+            ...this.playback,
+            ...this.rtsp,
+            ...this.rtmp,
+            ...this.hls,
+            ...this.webrtc,
+            ...this.srt
+        };
+
+        config.authInternalUsers = this.users.target;
+        return config;
+    }
+
+    set globalConfig(value) {
+        // do nothing
+    }
 }

@@ -1,7 +1,7 @@
 import EventEmitter from "./event_emitter.js";
 
 export default class DataProxy extends EventEmitter {
-    constructor(target = {}, parent, lift = true) {
+    constructor(target, parent, lift = true) {
         super();
 
         this.target = target;
@@ -10,10 +10,10 @@ export default class DataProxy extends EventEmitter {
 
         return new Proxy(this.target, {
             get: (target, prop, receiver) => {
-                if (prop === 'keys') {
+                if (prop === 'keys' && !Array.isArray(this.target)) {
                     return () => Object.keys(target);
                 }
-                if (prop === 'length') {
+                if (prop === 'length' && !Array.isArray(this.target)) {
                     return Object.keys(target).length;
                 }
                 if (prop === '_') {
@@ -24,6 +24,9 @@ export default class DataProxy extends EventEmitter {
                 }
                 if (prop === 'emit') {
                     return (event, ...args) => this.emit(event, ...args);
+                }
+                if(prop === 'target'){
+                    return this.target;
                 }
 
                 return target[prop];

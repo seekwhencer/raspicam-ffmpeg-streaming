@@ -1,6 +1,7 @@
 export default class EventEmitter {
     constructor() {
         this.listeners = new Map();
+        this.label = `${this.constructor.name.toUpperCase()} >`;
     }
 
     on(event, callback) {

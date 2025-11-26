@@ -34,9 +34,7 @@ export default class MediamtxProxy {
      * Proxy-Handler
      */
     async _proxy(req, res) {
-        console.log('>>> req.originalUrl:', req.originalUrl);
         try {
-            // optional eigener Auth-Hook
             if (this.beforeProxy) {
                 const ok = await this.beforeProxy(req, res);
                 if (!ok) return; // Hook übernimmt Fehlerantwort
@@ -71,8 +69,6 @@ export default class MediamtxProxy {
             if (["POST", "PATCH", "PUT"].includes(req.method)) {
                 fetchOptions.body = JSON.stringify(req.body);
             }
-
-            console.log(targetUrl);
 
             const response = await fetch(targetUrl, fetchOptions);
 

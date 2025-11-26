@@ -12,7 +12,7 @@ export default class Video extends EventEmitter {
 
     render() {
         this.element = document.createElement('video');
-        this.element.setAttribute('controls', 'controls');
+        //this.element.setAttribute('controls', 'controls');
         this.element.setAttribute('autoplay', 'autoplay');
         this.element.setAttribute('muted', 'muted');
         this.element.className = 'cam';

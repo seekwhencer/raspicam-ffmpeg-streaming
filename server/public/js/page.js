@@ -14,12 +14,14 @@ export default class Page extends EventEmitter {
         // settings
         this.settings = new Settings(this);
 
-        setTimeout(() => this.settings.general.logLevel = 'debug', 2000);
-        setTimeout(() => this.settings.general.logLevel = 'info', 4000);
+        //setTimeout(() => this.settings.general.logLevel = 'debug', 2000);
+        //setTimeout(() => this.settings.general.logLevel = 'info', 4000);
 
         this.settings.on('created', () => {
-            console.log(this.constructor.name, this.settings.getConfig());
+            console.log(this.label, 'CREATED GLOBAL CONFIG', this.settings.globalConfig);
             this.render();
+
+            setTimeout(() => this.settings.setGlobalConfig(), 500);
         });
 
         this.overview = new Overview(this);
