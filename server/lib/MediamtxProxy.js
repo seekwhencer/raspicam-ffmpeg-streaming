@@ -26,10 +26,6 @@ export default class MediamtxProxy {
         this._register();
     }
 
-    getRouter() {
-        return this.router;
-    }
-
     /**
      * Proxy-Handler
      */
