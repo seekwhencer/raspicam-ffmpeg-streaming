@@ -11,6 +11,10 @@ export default class Page extends EventEmitter {
         super();
         this.element = document.querySelector('#page');
 
+        this.overview = new Overview(this);
+        this.sources = new Sources(this);
+        //this.streams = new Streams(this);
+
         // settings
         this.settings = new Settings(this);
         this.settings.on('created', async () => {
@@ -22,10 +26,6 @@ export default class Page extends EventEmitter {
             this.render();
         });
 
-        this.overview = new Overview(this);
-        this.sources = new Sources(this);
-        this.streams = new Streams(this);
-
         // testing: change a config value and save it instantly (send it to the server
         setTimeout(() => this.settings.general.logLevel = 'debug', 2000);
         setTimeout(() => this.settings.general.logLevel = 'info', 4000);
@@ -34,6 +34,7 @@ export default class Page extends EventEmitter {
     }
 
     render() {
-        this.streams.render();
+        //this.streams.render();
+        this.overview.render();
     }
 }
