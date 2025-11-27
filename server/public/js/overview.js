@@ -7,10 +7,14 @@ export default class Overview extends EventEmitter {
     constructor(page) {
         super();
         this.page = page;
-        this.element = this.page.element.querySelector('#overview');
+        //this.element = this.page.element.querySelector('#overview');
     }
 
     render() {
+        this.element = document.createElement("div");
+        this.element.className = "tab overview";
+        this.page.element.append(this.element);
+
         // a button
         this.button = new Button({
             innerHTML: this.settings.logLevel,
@@ -26,6 +30,7 @@ export default class Overview extends EventEmitter {
             className: 'overview-input',
             type: 'text',
             placeholder: 'Type something...',
+            value: this.settings.logLevel,
             oninput: (e) => this.settings.logLevel = e.target.value
         });
         this.settings.on('logLevel', (value, action) => this.input.element.value = value);
