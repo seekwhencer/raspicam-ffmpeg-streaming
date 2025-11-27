@@ -16,6 +16,8 @@ export default class ApiSettings extends Setting {
             'apiTrustedProxies'
         ];
 
+        this.nailed = this.fields;
+
         this.on('create', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
         this.on('update', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
         this.on('delete', (prop) => this.settings.created ? this.settings.setGlobalConfig() : null);

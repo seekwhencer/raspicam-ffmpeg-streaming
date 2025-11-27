@@ -24,6 +24,10 @@ export default class HLSSettings extends Setting {
             'hlsMuxerCloseAfter',
         ];
 
+        this.options = {
+            'hlsVariant' : ['mpegts', 'fmp4', 'lowLatency ']
+        }
+
         this.on('create', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
         this.on('update', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
         this.on('delete', (prop) => this.settings.created ? this.settings.setGlobalConfig() : null);

@@ -44,7 +44,6 @@ export default class Video extends EventEmitter {
         } else {
             this.element.src = this.url;
         }
-
         this.element.play();
     }
 }

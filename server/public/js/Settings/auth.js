@@ -17,6 +17,10 @@ export default class AuthSettings extends Setting {
             'authJWTInHTTPQuery'
         ];
 
+        this.options = {
+            authMethod: ['internal', 'http', 'jwt']
+        }
+
         this.on('create', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
         this.on('update', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
         this.on('delete', (prop) => this.settings.created ? this.settings.setGlobalConfig() : null);

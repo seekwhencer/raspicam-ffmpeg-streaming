@@ -22,6 +22,15 @@ export default class GeneralSettings extends Setting {
             'runOnDisconnect'
         ];
 
+        this.nailed = [
+            'logDestinations', 'logFile', 'sysLogPrefix'
+        ]
+
+        this.options = {
+            'logLevel': ['debug', 'info', 'warn', 'error'],
+            'logDestinations': ['stdout', 'file', 'syslog'] // but nailed
+        }
+
         this.on('create', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
         this.on('update', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
         this.on('delete', (prop) => this.settings.created ? this.settings.setGlobalConfig() : null);
