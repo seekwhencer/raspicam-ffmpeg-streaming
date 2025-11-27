@@ -12,13 +12,13 @@ services:
     container_name: ${PROJECT_NAME}
     working_dir: /app/server
     restart: always
-    #command: 'tail -f /dev/null'
-    command: 'node index.js'
+    command: 'tail -f /dev/null'
+    #command: 'node index.js'
     user: root
     networks:
       - camnet
     ports:
-        - "3000:3000"
+        - "${SERVER_PORT}:${SERVER_PORT}"
     volumes:
       - /app/node_modules
       - .:/app
@@ -31,6 +31,12 @@ services:
       - VERBOSE=2
       - ENVIRONMENT=default
       - NODE_ENV=development
+      - SERVER_PORT=${SERVER_PORT}
+      - RTSP_PORT=${RTSP_PORT}
+      - HLS_PORT=${HLS_PORT}
+      - WEBRTC_PORT=${WEBRTC_PORT}
+      - WEBRTC_UDP_PORT=${WEBRTC_UDP_PORT}
+      - API_PORT=${API_PORT}
     devices:
       - '/dev/video0:/dev/video0'
       - '/dev/video1:/dev/video1'

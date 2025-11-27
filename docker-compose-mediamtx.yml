@@ -9,11 +9,11 @@ services:
     container_name: mediamtx
     restart: unless-stopped
     ports:
-      - "8888:8888"      # HLS
-      - "8554:8554"      # RTSP
-      - "8889:8889"      # WebRTC API
-      - "8189:8189/udp"  # WebRTC ICE/UDP
-      - "9997:9997"      # API
+      - "${HLS_PORT}:${HLS_PORT}"                   # HLS
+      - "${RTSP_PORT}:${RTSP_PORT}"                 # RTSP
+      - "${WEBRTC_PORT}:${WEBRTC_PORT}"             # WebRTC API
+      - "${WEBRTC_UDP_PORT}:${WEBRTC_UDP_PORT}/udp" # WebRTC ICE/UDP
+#      - "${API_PORT}:${API_PORT}"                   # API
     volumes:
       - ./mediamtx.yml:/mediamtx.yml:ro
     networks:
