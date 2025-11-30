@@ -28,7 +28,7 @@ export default class GeneralSettings extends Setting {
 
         this.options = {
             'logLevel': ['debug', 'info', 'warn', 'error'],
-            'logDestinations': ['stdout', 'file', 'syslog'] // but nailed
+            'logDestinations': ['stdout', 'file'] //, 'syslog'
         }
 
         this.on('create', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);

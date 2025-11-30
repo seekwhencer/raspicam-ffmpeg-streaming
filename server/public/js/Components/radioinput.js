@@ -16,4 +16,8 @@ export default class RadioInput extends Component {
         this.init();
         this.render();
     }
+
+    check() {
+
+    }
 }

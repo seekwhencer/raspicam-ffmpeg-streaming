@@ -3,6 +3,8 @@ import Button from './button.js';
 import TextInput from "./textinput.js";
 import CheckboxInput from './checkboxinput.js';
 import SelectInput from './selectinput.js';
+import MultiCheckboxInput from './multicheckboxinput.js';
+import MultiTextInput from './multitextinput.js';
 
 export default class FormItem extends Component {
     constructor(settings, prop, options = {}) {
@@ -14,10 +16,15 @@ export default class FormItem extends Component {
             'className': 'item'
         };
 
+        this.deleteEventPropChange = this.settings.on(this.prop, (value, action) => {
+            this.item.element.value = value;
+            this.item.check();
+        });
+
+        //console.log('EVENT', this.eventPropChange);
+
         this.init();
         this.render();
-
-        //console.log('???', this.options);
     }
 
     render() {
@@ -28,47 +35,86 @@ export default class FormItem extends Component {
         label.innerHTML = splitCamelCase(this.prop).toUpperCase();
         this.element.append(label);
 
+        // input field
         if (this.dataType === 'string' || this.dataType === 'number') {
             if (this.values) {
-                const select = new SelectInput(this.settings, this.prop, {
+                // select input
+                this.item = new SelectInput(this.settings, this.prop, {
                     name: `input-${this.name}`
                 });
-                this.settings.on(this.prop, (value, action) => {
-                    select.element.value = value;
-                });
-                this.element.append(select.element);
+                /*this.settings.on(this.prop, (value, action) => {
+                    this.item.element.value = value;
+                });*/
+                this.element.append(this.item.element);
 
                 // the clear button
-                this.clearButton = new Button(this.settings, this.prop, {
+                const clearButton = new Button(this.settings, this.prop, {
                     innerHTML: '🞬',
                     className: 'button clear',
                     onclick: () => this.settings[this.prop] = ''
                 });
-                this.element.append(this.clearButton.element);
+                this.element.append(clearButton.element);
             } else {
-                const input = new TextInput(this.settings, this.prop, {
+                // text input
+                this.item = new TextInput(this.settings, this.prop, {
                     name: `input-${this.name}`
                 });
-                this.settings.on(this.prop, (value, action) => input.element.value = value);
-                this.element.append(input.element);
+                //this.settings.on(this.prop, (value, action) => input.element.value = value);
+                this.element.append(this.item.element);
             }
         }
 
+        // single check switch
         if (this.dataType === 'boolean') {
-            const checkbox = new CheckboxInput(this.settings, this.prop, {
+            this.item = new CheckboxInput(this.settings, this.prop, {
                 name: `input-${this.name}`
             });
-            const check = () => checkbox.element.value === 'true' ? checkbox.element.checked = true : checkbox.element.checked = false;
-            check();
-            this.settings.on(this.prop, (value, action) => {
-                checkbox.element.value = value;
+            //const check = () => this.item.element.value === 'true' ? this.item.element.checked = true : this.item.element.checked = false;
+            //check();
+            /*this.settings.on(this.prop, (value, action) => {
+                this.item.element.value = value;
                 check();
-            });
-            this.element.append(checkbox.element);
+            });*/
+            this.element.append(this.item.element);
             this.element.classList.add('switch');
         }
 
+        // multi check switches
+        if (this.dataType === 'array' && this.values) {
+            this.item = new MultiCheckboxInput(this.settings, this.prop, {
+                name: `input-${this.name}`
+            });
 
+            /*this.settings.on(this.prop, (value, action) => {
+                this.item.element.value = JSON.stringify(value);
+                this.item.check();
+            });*/
+
+            this.element.append(this.item.element);
+            this.element.append(this.item.checkboxes);
+            this.element.classList.add('switches');
+        }
+
+        if (this.dataType === 'array' && !this.values) {
+            this.item = new MultiTextInput(this.settings, this.prop, {
+                name: `input-${this.name}`
+            });
+
+            /*this.settings.on(this.prop, (value, action) => {
+                this.item.element.value = JSON.stringify(value);
+                hidden.check();
+            });*/
+
+            this.element.append(this.item.element);
+            this.element.append(this.item.inputs);
+            this.element.classList.add('rows');
+        }
+    }
+
+    destroy() {
+        console.log('>>> DESTROYING');
+        console.log(this.deleteEventPropChange);
+        this.deleteEventPropChange();
     }
 }
 

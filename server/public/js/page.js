@@ -38,6 +38,7 @@ export default class Page extends EventEmitter {
 
         // render tab on tab select
         this.on('tab', tab => this.showTab(tab));
+        //this.on('group', group => this.showGroup(group));
 
     }
 
@@ -50,15 +51,32 @@ export default class Page extends EventEmitter {
         document.querySelector('body').append(this.element);
 
         this.tabNavigation.render();
-        //this.tabs.overview.render();
     }
 
     showTab(tab) {
+        this.tab = this.tabs[tab.slug];
+
+        if (!this.tab)
+            return;
+
         this.destroyTabs();
-        this.tabs[tab.slug] ? this.tabs[tab.slug].render() : null
+        this.tab.render();
     }
 
     destroyTabs() {
         Object.keys(this.tabs).forEach(tab => this.tabs[tab].destroy());
+    }
+
+    showGroup(group) {
+        this.group = this.tab.groups.filter(g => g.slug === group.slug)[0];
+
+        //console.log('+++ GROUP', group, this.group);
+
+        this.destroyGroup();
+        //this.tab ? this.tab.groups[group] ? this.tab.groups[group].render() : null : null;
+    }
+
+    destroyGroup() {
+
     }
 }

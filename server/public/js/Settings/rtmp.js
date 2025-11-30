@@ -16,6 +16,11 @@ export default class RTMPSettings extends Setting {
             'rtmpServerCert'
         ];
 
+        this.options = {
+            'rtmpEncryption': ['no', 'strict', 'optional']
+        }
+
+
         this.on('create', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
         this.on('update', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
         this.on('delete', (prop) => this.settings.created ? this.settings.setGlobalConfig() : null);

@@ -1,5 +1,4 @@
 import Setting from "./setting.js";
-import DataProxy from "../data_proxy.js";
 
 export default class HLSSettings extends Setting {
     constructor(settings) {

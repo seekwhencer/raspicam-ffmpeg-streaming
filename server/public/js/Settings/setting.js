@@ -7,6 +7,7 @@ export default class Setting extends EventEmitter {
 
         this.settings = settings;
         this.data = new DataProxy(target, this, false);
+        this.options = {};
 
         this.data.on('create', (prop, value) => this.emit('create', prop, value));
         this.data.on('update', (prop, value) => this.emit('update', prop, value));

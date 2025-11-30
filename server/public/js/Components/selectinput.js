@@ -1,5 +1,4 @@
 import Component from "./component.js";
-import Button from "./button.js";
 
 export default class SelectInput extends Component {
     constructor(settings, prop, options = {}) {
@@ -34,5 +33,9 @@ export default class SelectInput extends Component {
         this.element.oninput = (e) => oninput(e);
         */
         this.element.value = this.props.value;
+    }
+
+    check() {
+
     }
 }

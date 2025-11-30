@@ -18,6 +18,6 @@ export default class Button extends Component {
         this.init();
         this.render();
 
-        console.log('>>> PROPS', this.prop, this.defaults, this.options);
+        //console.log('>>> PROPS', this.prop, this.defaults, this.options);
     }
 }

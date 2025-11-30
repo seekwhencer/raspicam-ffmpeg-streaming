@@ -7,10 +7,11 @@ export default class Component extends EventEmitter {
 
         this.options = options;
         this.settings = settings;
-        this.prop = prop
+        this.prop = prop;
+        this.value = this.settings[this.prop];
 
         //console.log('+++', this.prop, this.settings);
-        this.dataType = getType(this.settings[this.prop]);
+        this.dataType = getType(this.value);
         this.values = this.settings._.parent.options[this.prop] || false; //@TODO;
         this.name = `${prop.toLowerCase()}`;
         this.element = false;

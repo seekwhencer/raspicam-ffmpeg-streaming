@@ -8,6 +8,8 @@ export default class OverviewTab extends EventEmitter {
     }
 
     render() {
+        return;
+
         if (this.element)
             this.destroy();
 

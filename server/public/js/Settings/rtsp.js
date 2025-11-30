@@ -1,5 +1,4 @@
 import Setting from "./setting.js";
-import DataProxy from "../data_proxy.js";
 
 export default class RTSPSettings extends Setting {
     constructor(settings) {
@@ -26,6 +25,14 @@ export default class RTSPSettings extends Setting {
             'rtspServerCert',
             'rtspAuthMethods',
         ];
+
+        this.options = {
+            'rtspEncryption': ['no', 'strict', 'optional'],
+            'rtspTransports' : ['multicast', 'tcp', 'udp' ],
+            'rtspAuthMethods' : ['basic','digest']
+        }
+
+
 
         this.on('create', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
         this.on('update', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);

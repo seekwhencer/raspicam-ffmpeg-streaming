@@ -57,7 +57,8 @@ video {
 .tab-navigation {
     position: absolute;
     top: 20px;
-    left: 100px;
+    width: 100%;
+    text-align: center;
 
     button {
         margin-right: 10px;
@@ -65,8 +66,9 @@ video {
         font-size: 16px;
         padding: 10px 30px;
         text-transform: uppercase;
-        font-weight: 700;
+        font-weight: 500;
         text-align: center;
+        text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
 
         &:hover {
             background-color: var(--color-secondary);
@@ -84,15 +86,59 @@ video {
 }
 
 .tab {
-    margin: 120px 100px 100px 100px;
+    width: 1200px;
+    margin: 100px auto;
+
+    .group-navigation {
+        margin-bottom: 30px;
+        width: 100%;
+        text-align: center;
+
+        button {
+            margin-right: 10px;
+            background-color: var(--light-med-bg);
+            font-size: 12px;
+            padding: 10px 30px;
+            text-transform: uppercase;
+            font-weight: 600;
+            text-align: center;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+
+            &:hover {
+                background-color: var(--color-secondary);
+            }
+
+            &.active {
+                background-color: var(--color-primary);
+            }
+        }
+    }
+
+    .groups {
+        display: flex; /* Aktiviert Flexbox für den Container */
+        flex-wrap: nowrap; /* Stellt sicher, dass die Elemente in einer Zeile bleiben, wenn Platz vorhanden ist */
+        justify-content: space-between;
+
+        .group {
+            flex-grow: 1;
+            flex-basis: 0;
+            max-width: 500px;
+
+            h2 {
+                margin: 0 0 10px 0;
+            }
+
+            .item {
+                width: 100%;
+            }
+        }
+    }
 
     .item {
-        width: 20%;
         display: inline-block;
         position: relative;
-        height: 60px;
+        min-height: 60px;
         overflow: hidden;
-        border-bottom: 1px dashed var(--light-border-color);
 
         button.clear {
             position: absolute;
@@ -121,5 +167,33 @@ video {
                 transform: translateY(0px);
             }
         }
+
+        .rows {
+
+        }
+
+        .checkboxes {
+            width: 100%;
+
+            .box {
+                display: inline-block;
+                overflow: hidden;
+                padding: 5px 0;
+                margin-right: 20px;
+
+                label {
+                    margin: 0;
+                    display: inline-block;
+                }
+
+                input {
+                    display: inline-block;
+                    margin: 0 50px 3px 0;
+                }
+            }
+        }
     }
+
 }
+
+.

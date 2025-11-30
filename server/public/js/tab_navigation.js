@@ -7,13 +7,13 @@ export default class TabNavigation extends EventEmitter {
         this.tabs = [
             {name: "Overview", slug: "overview", icon: 'armchair'},
             {name: "Server", slug: "server", icon: 'settings'},
-            {name: "Path Defaults", slug: "path", icon: 'layers-2'},
             {name: "Sources", slug: "sources", icon: 'shrink'},
             {name: "Streams", slug: "streams", icon: 'expand'},
             {name: "Playback", slug: "playback", icon: 'play'},
             {name: "Recording", slug: "recording", icon: 'circle'},
-            {name: "Monitoring", slug: "monitoring", icon: 'chart-no-axes-combined'}];
-
+            {name: "Monitoring", slug: "monitoring", icon: 'chart-no-axes-combined'},
+            {name: "Path Defaults", slug: "path", icon: 'layers-2'}
+        ];
         this.on('select', () => {
             window.history.pushState({}, "", `#${this.selected}`);
             this.buttons.forEach(b => b.classList.remove("active"));

@@ -90,8 +90,8 @@ export default class DataProxy extends EventEmitter {
         if (type === 'function')
             return value;
 
-        if (Array.isArray(field))
-            return field;
+        if (Array.isArray(value))
+            return value;
 
         return value;
     }

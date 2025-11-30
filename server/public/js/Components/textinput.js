@@ -19,4 +19,6 @@ export default class TextInput extends Component {
         this.init();
         this.render();
     }
+
+    check() {}
 }
