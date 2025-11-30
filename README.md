@@ -2,6 +2,8 @@
 Stream and transcode hardware encoded 3 (or maybe 4) webcams on a Raspberry Pi4.  
 Orchestrated with node.js with a tiny web frontend.
 
+![Screenshot #1](../master/screenshots/screenshot_01.png?raw=true "Screenshot #1")
+
 ## 🡆 Prerequisites
 - set up you raspberry pi 4 or 5 (expand filesystem, locale)
 - plug you webcams (don't forget the external powered usb-hub)
@@ -75,6 +77,8 @@ docker compose up
 # or detached
 docker compose up -d
 ```
+
+![Screenshot #2](../master/screenshots/screenshot_02.png?raw=true "Screenshot #2")
 
 ## 🡆 Hints
 - the Raspberry Pi 4 can handle 3 webcams in 2MP with 3Mbit bitrate each (or more?)
