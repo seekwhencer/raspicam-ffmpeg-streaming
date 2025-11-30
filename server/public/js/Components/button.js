@@ -2,8 +2,8 @@ import Component from "./component.js";
 import DataProxy from "../data_proxy.js";
 
 export default class Button extends Component {
-    constructor(settings, prop, options = {}) {
-        super(settings, prop, options);
+    constructor(settings, prop, options = {}, tab) {
+        super(settings, prop, options, tab);
 
         this.elementTag = 'button';
         this.defaults = {
@@ -17,7 +17,13 @@ export default class Button extends Component {
 
         this.init();
         this.render();
+    }
 
-        //console.log('>>> PROPS', this.prop, this.defaults, this.options);
+    setValue(value) {
+        super.setValue(value);
+        this.check();
+    }
+
+    check() {
     }
 }

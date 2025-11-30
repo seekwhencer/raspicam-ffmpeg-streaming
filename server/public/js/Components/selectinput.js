@@ -1,8 +1,8 @@
 import Component from "./component.js";
 
 export default class SelectInput extends Component {
-    constructor(settings, prop, options = {}) {
-        super(settings, prop, options);
+    constructor(settings, prop, options = {}, tab) {
+        super(settings, prop, options, tab);
 
         this.elementTag = 'select';
         this.defaults = {
@@ -27,12 +27,11 @@ export default class SelectInput extends Component {
             o.innerHTML = o.value = option;
             this.element.append(o);
         }) : null;
+    }
 
-        // extend the on input event, but executes the given default
-        /*const oninput = this.element.oninput;
-        this.element.oninput = (e) => oninput(e);
-        */
-        this.element.value = this.props.value;
+    setValue(value){
+        super.setValue(value);
+        this.check();
     }
 
     check() {

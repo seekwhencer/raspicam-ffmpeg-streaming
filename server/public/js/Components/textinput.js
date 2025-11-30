@@ -1,8 +1,8 @@
 import Component from "./component.js";
 
 export default class TextInput extends Component {
-    constructor(settings, prop, options = {}) {
-        super(settings, prop, options);
+    constructor(settings, prop, options = {}, tab) {
+        super(settings, prop, options, tab);
 
         this.elementTag = 'input';
         this.defaults = {
@@ -11,7 +11,7 @@ export default class TextInput extends Component {
             'type': 'text',
             'disabled': '',
             'dataset': {},
-            'value' : this.settings[this.prop],
+            'value': this.settings[this.prop],
             'placeholder': 'type something ...',
             oninput: (e) => this.settings[this.prop] = e.target.value,
         };
@@ -20,5 +20,12 @@ export default class TextInput extends Component {
         this.render();
     }
 
-    check() {}
+    setValue(value) {
+        super.setValue(value);
+        this.check();
+    }
+
+    check() {
+
+    }
 }

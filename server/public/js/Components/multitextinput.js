@@ -2,8 +2,8 @@ import Component from "./component.js";
 import Button from "./button.js";
 
 export default class MultiTextInput extends Component {
-    constructor(settings, prop, options = {}) {
-        super(settings, prop, options);
+    constructor(settings, prop, options = {}, tab) {
+        super(settings, prop, options, tab);
 
         this.elementTag = 'input';
         this.defaults = {
@@ -41,7 +41,7 @@ export default class MultiTextInput extends Component {
                 innerHTML: '🞬',
                 className: 'button clear',
                 onclick: () => input.value = ''
-            });
+            }, this.tab);
             row.append(clearButton.element);
 
             /*const label = document.createElement("label");
@@ -55,10 +55,10 @@ export default class MultiTextInput extends Component {
 
         //const check = () => this.rows.forEach(row =>  this.settings[this.prop].includes(row.querySelector('input').value) ? row.querySelector('input').checked = true : null);
         //check();
-        this.settings.on(this.prop, (value, action) => {
-            this.element.value = value;
-            //check();
-        });
+        //this.settings.on(this.prop, (value, action) => {
+        //    this.element.value = value;
+        //    check();
+        //});
 
         this.element.classList.add('switch');
     }
@@ -67,6 +67,15 @@ export default class MultiTextInput extends Component {
         const value = [...this.checkboxes.querySelectorAll('input')].filter(b => b.checked).map(b => b.value);
         this.element.value = JSON.stringify(value);
         this.settings[this.prop] = value;
+    }
+
+    setValue(value){
+        super.setValue(value);
+        this.check();
+    }
+
+    check() {
+
     }
 }
 

@@ -16,10 +16,12 @@ import {
     UsersSettings
 } from "./Settings/index.js"
 
-export default class Settings extends EventEmitter {
+export default class Settings {
     constructor(page) {
-        super();
+        this.debug = true;
+        this.label = this.constructor.name.toUpperCase();
         this.page = page;
+        this.events = this.page.events;
 
         this.baseUrl = '/mediamtx/config';
         this.generalSettingsUrl = `${this.baseUrl}/global/get`;
@@ -35,6 +37,17 @@ export default class Settings extends EventEmitter {
         this.replacePathUrl = `${this.pathBaseUrl}/replace`;
         this.deletePathUrl = `${this.pathBaseUrl}/delete`;
 
+        this.created = false;
+
+        //this.on('loaded-general', () => this.created ? this.mergeDiffProps(this.general, this.config.general) : null);
+        //this.on('loaded-path-defaults', () => this.created ? this.mergeDiffProps(this.path, this.config.path) : null);
+
+        //@TODO
+        //this.on('loaded-paths-list', () => console.log(this.label, 'LOADED PATHS LIST', this.config.paths.length, this.config.paths));
+        //this.on('loaded-users', () => console.log(this.label, 'LOADED USERS', this.config.users.length, this.config.users));
+    }
+
+    async load() {
         this.config = {
             general: new DataProxy({}, this, false),
             path: new DataProxy({}, this, false),
@@ -42,29 +55,13 @@ export default class Settings extends EventEmitter {
             user: new DataProxy({}, this, false),
             users: new DataProxy([], this, false),
         };
-        this.created = false;
 
-        //
-        this.on('loaded', () => this.create());
-        this.on('created', () => this.created = true);
-
-        //
-        this.on('loaded-general', () => this.created ? this.mergeDiffProps(this.general, this.config.general) : null);
-        this.on('loaded-path-defaults', () => this.created ? this.mergeDiffProps(this.path, this.config.path) : null);
-
-        //@TODO
-        this.on('loaded-paths-list', () => console.log(this.label, 'LOADED PATHS LIST', this.config.paths.length, this.config.paths));
-        this.on('loaded-users', () => console.log(this.label, 'LOADED USERS', this.config.users.length, this.config.users));
-
-        // load config from mediamtx server
-        this.load();
-    }
-
-    async load() {
         await this.loadGeneral();
         await this.loadPathDefaults();
         await this.loadPathsList();
-        this.emit('loaded');
+        await this.create();
+
+        console.log('LOADED CONFIG: ', this.config);
     }
 
     async loadGeneral() {
@@ -98,7 +95,7 @@ export default class Settings extends EventEmitter {
         this.emit('loaded-paths-list');
     }
 
-    create() {
+    async create() {
         this.general = new GeneralSettings(this);
         this.auth = new AuthSettings(this);
         this.api = new ApiSettings(this);
@@ -114,7 +111,7 @@ export default class Settings extends EventEmitter {
         this.paths = new PathsSettings(this);
         this.users = new UsersSettings(this);
 
-        this.emit('created');
+        this.created = true;
     }
 
     // complete
@@ -173,6 +170,27 @@ export default class Settings extends EventEmitter {
         for (let prop in diffProps) {
             to[prop] = diffProps[prop];
         }
+    }
+
+    on(event, callback) {
+        return this.events.on(event, callback);
+    }
+
+    emit(event, ...args) {
+        return this.events.emit(event, ...args);
+    }
+
+    destroy() {
+        this.created = false;
+    }
+
+    action(action, prop, value) {
+        if (!this.debug)
+            return;
+
+        //console.log(this.label, 'ACTION', action, prop, value);
+
+
     }
 
     async setPathConfig(pathName) {

@@ -1,8 +1,8 @@
 import Component from "./component.js";
 
 export default class CheckboxInput extends Component {
-    constructor(settings, prop, options = {}) {
-        super(settings, prop, options);
+    constructor(settings, prop, options = {}, tab) {
+        super(settings, prop, options, tab);
 
         this.elementTag = 'input';
         this.defaults = {
@@ -11,7 +11,7 @@ export default class CheckboxInput extends Component {
             'type': 'checkbox',
             'disabled': '',
             'value': this.settings[this.prop],
-            oninput: (e) => this.setValue(),//this.settings[this.prop] = e.target.value,
+            oninput: (e) => this.settings[this.prop] = e.target.value
         };
 
         this.init();
@@ -29,13 +29,12 @@ export default class CheckboxInput extends Component {
         }
     }
 
-    setValue() {
-        this.settings[this.prop] = this.element.value;
+    setValue(value) {
+        super.setValue(value);
         this.check();
     }
 
     check() {
-        console.log('CHECK', this.element.value);
         this.element.value === 'true' ? this.element.checked = true : this.element.checked = false
     }
 }

@@ -7,10 +7,6 @@ export default class UsersSettings extends Setting {
         this.config = this.settings.config;
         this.source = this.config.users;
 
-        this.on('create', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
-        this.on('update', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
-        this.on('delete', (prop) => this.settings.created ? this.settings.setGlobalConfig() : null);
-
         //
         if (Array.isArray(this.source.target)) {
             this.source.target.forEach(target => this.data.push(target));
@@ -19,5 +15,14 @@ export default class UsersSettings extends Setting {
         }
 
         return this.data;
+    }
+
+    action(action, prop, value) {
+        super.action(action, prop, value);
+
+        if (this.settings.created)
+            this.settings.setGlobalConfig();
+
+        this.settings.action(action, prop, value);
     }
 }

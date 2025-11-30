@@ -1,20 +1,9 @@
-import EventEmitter from "../event_emitter.js";
-
-export default class GroupNavigation extends EventEmitter {
+export default class GroupNavigation {
     constructor(tab) {
-        super();
         this.tab = tab;
         this.page = this.tab.page;
+        this.events = this.page.events;
         this.groups = this.tab.groups;
-
-        this.on('select', () => {
-            window.history.pushState({}, "", `#${this.page.tabNavigation.tab.slug}/${this.selected}`);
-            this.buttons.forEach(b => b.classList.remove("active"));
-            this.buttons.filter(b => b.slug === this.selected)[0].classList.add("active");
-            this.tab.emit('group', this.group);
-            this.page.emit('group', this.group);
-        });
-
     }
 
     render() {
@@ -35,8 +24,16 @@ export default class GroupNavigation extends EventEmitter {
 
         // open the first group
         if (!this.selected)
-            this.selected = 'general';
+            this.selected = this.groups[0].slug;
 
+    }
+
+    on(event, callback) {
+        return this.events.on(event, callback);
+    }
+
+    emit(event, ...args) {
+        return this.events.emit(event, ...args);
     }
 
     get selected() {
@@ -45,7 +42,11 @@ export default class GroupNavigation extends EventEmitter {
 
     set selected(val) {
         this._selected = val;
-        this.emit('select', this.group);
+
+        window.history.pushState({}, "", `#${this.page.tabNavigation.tab.slug}/${this.selected}`);
+        this.buttons.forEach(b => b.classList.remove("active"));
+        this.buttons.filter(b => b.slug === this.selected)[0].classList.add("active");
+        this.tab.group = this.group;
     }
 
     get group() {

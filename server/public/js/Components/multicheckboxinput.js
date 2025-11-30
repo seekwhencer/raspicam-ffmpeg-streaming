@@ -1,8 +1,8 @@
 import Component from "./component.js";
 
 export default class MultiCheckboxInput extends Component {
-    constructor(settings, prop, options = {}) {
-        super(settings, prop, options);
+    constructor(settings, prop, options = {}, tab) {
+        super(settings, prop, options, tab);
 
         this.elementTag = 'input';
         this.defaults = {
@@ -10,12 +10,6 @@ export default class MultiCheckboxInput extends Component {
             value: this.value,
             onchange: () => console.log('>CHECKING')
         };
-
-        /*this.settings.on(this.prop, (value, action) => {
-            console.log('??????', value);
-            this.element.value = value;
-            this.check();
-        });*/
 
         this.init();
         this.render();
@@ -55,12 +49,14 @@ export default class MultiCheckboxInput extends Component {
         this.element.classList.add('switch');
     }
 
+    setValue(value){
+        super.setValue(value);
+        this.check();
+    }
+
     check() {
-        console.log('CHECK', this.value);
         this.boxes.forEach(box => {
             const input = box.querySelector('input');
-            //console.log('check value:', input.value, 'in:', this.value);
-
             this.value.includes(input.value) ? input.checked = true : input.checked = false;
         });
     }

@@ -1,32 +1,25 @@
 import EventEmitter from "../event_emitter.js";
 import DataProxy from "../data_proxy.js";
 
-export default class Setting extends EventEmitter {
+export default class Setting {
     constructor(settings, target = {}) {
-        super();
-
+        this.debug = false;
+        this.label = this.constructor.name.toUpperCase();
         this.settings = settings;
+        this.events = this.settings.events || new EventEmitter();
         this.data = new DataProxy(target, this, false);
         this.options = {};
+    }
 
-        this.data.on('create', (prop, value) => this.emit('create', prop, value));
-        this.data.on('update', (prop, value) => this.emit('update', prop, value));
-        this.data.on('delete', (prop, value) => this.emit('delete', prop, value));
+    action(action, prop, value) {
+        if (!this.debug) {
+            return;
+        }
+        action === 'create' ? console.log(this.label, 'CREATED +', prop.padEnd(30, '.'), (this.getType(value)).padEnd(10, '.'), value) : null;
+        action === 'update' ? console.log(this.label, 'UPDATED >', this.constructor.name.padEnd(20, '.'), prop.padEnd(30, '.'), (this.getType(value)).padEnd(10, '.'), value) : null;
+        action === 'delete' ? console.log(this.label, 'DELETED !', this.constructor.name.padEnd(20, '.'), prop.padEnd(30, '.')) : null;
 
-        this.on('create', (prop, value) => {
-            this.debug ? console.log(this.label, 'CREATED +', prop.padEnd(30, '.'), (this.getType(value)).padEnd(10, '.'), value) : null;
-            this.settings.emit('create', prop, value);
-        });
-
-        this.on('update', (prop, value) => {
-            this.debug ? console.log(this.label, 'UPDATED >', this.constructor.name.padEnd(20, '.'), prop.padEnd(30, '.'), (this.getType(value)).padEnd(10, '.'), value) : null;
-            this.settings.emit('update', prop, value);
-        });
-
-        this.on('delete', (prop) => {
-            this.debug ? console.log(this.label, 'DELETED !', this.constructor.name.padEnd(20, '.'), prop.padEnd(30, '.')) : null;
-            this.settings.emit('delete', prop);
-        });
+        this.emit(action, prop, value);
     }
 
     setFields() {
@@ -35,6 +28,14 @@ export default class Setting extends EventEmitter {
 
     getType(value) {
         return Array.isArray(value) ? 'array' : typeof value;
+    }
+
+    on(event, callback) {
+        return this.events.on(event, callback);
+    }
+
+    emit(event, ...args) {
+        return this.events.emit(event, ...args);
     }
 
 }

@@ -126,13 +126,18 @@ export default class PathSettings extends Setting {
             rpiCameraSoftwareH264Level: ['4.0', '4.1', '4.2']
         };
 
-        this.on('create', (prop, value) => this.settings.created ? this.settings.setPathDefaultsConfig() : null);
-        this.on('update', (prop, value) => this.settings.created ? this.settings.setPathDefaultsConfig() : null);
-        this.on('delete', (prop) => this.settings.created ? this.settings.setPathDefaultsConfig() : null);
-
         // set the data
         this.setFields();
 
         return this.data;
+    }
+
+    action(action, prop, value) {
+        super.action(action, prop, value);
+
+        if (this.settings.created)
+            this.settings.setPathDefaultsConfig();
+
+        this.settings.action(action, prop, value);
     }
 }

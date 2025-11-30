@@ -3,14 +3,15 @@ import EventEmitter from "./event_emitter.js";
 import Icons from './icons.js'
 import Settings from "./settings.js";
 import TabNavigation from "./tab_navigation.js";
+
 import OverviewTab from "./Tabs/overview.js";
 import PathDefaultsTab from "./Tabs/path.js";
 import ServerTab from "./Tabs/server.js";
 
-
-export default class Page extends EventEmitter {
+export default class Page {
     constructor() {
-        super();
+        this.events = window._EVENTS = new EventEmitter();
+        this.icons = new Icons();
         this.tabNavigation = new TabNavigation(this);
 
         this.tabs = {
@@ -20,30 +21,21 @@ export default class Page extends EventEmitter {
             //sources : new Sources(this),
             //streams : new Streams(this)
         };
+    }
 
-        // settings
+    async create() {
+        this.destroy();
+
         this.settings = new Settings(this);
-        this.settings.on('created', async () => {
-            console.log(this.label, 'CREATED GLOBAL CONFIG', this.settings.globalConfig);
-            await this.settings.setGlobalConfig();
-            await this.settings.setPathDefaultsConfig();
-            await this.settings.setPathConfig('cam1');
-            await this.render();
-        });
+        await this.settings.load();
+        await this.render();
 
         // testing: change a config value and save it instantly (send it to the server
         setTimeout(() => this.settings.general.logLevel = 'debug', 2000);
         setTimeout(() => this.settings.general.logLevel = 'info', 4000);
-        setTimeout(() => console.log(Object.keys(this.settings.users)), 6000);
-
-        // render tab on tab select
-        this.on('tab', tab => this.showTab(tab));
-        //this.on('group', group => this.showGroup(group));
-
     }
 
     async render() {
-        this.icons = new Icons();
         await this.icons.load();
 
         this.element = document.createElement("div");
@@ -67,16 +59,22 @@ export default class Page extends EventEmitter {
         Object.keys(this.tabs).forEach(tab => this.tabs[tab].destroy());
     }
 
-    showGroup(group) {
-        this.group = this.tab.groups.filter(g => g.slug === group.slug)[0];
-
-        //console.log('+++ GROUP', group, this.group);
-
-        this.destroyGroup();
-        //this.tab ? this.tab.groups[group] ? this.tab.groups[group].render() : null : null;
-    }
-
     destroyGroup() {
 
+    }
+
+    destroy(){
+        if (this.settings) {
+            this.settings.destroy();
+            delete this.settings;
+        }
+    }
+
+    on(event, callback) {
+        return this.events.on(event, callback);
+    }
+
+    emit(event, ...args) {
+        return this.events.emit(event, ...args);
     }
 }

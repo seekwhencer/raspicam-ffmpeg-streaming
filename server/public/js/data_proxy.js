@@ -1,14 +1,14 @@
 import EventEmitter from "./event_emitter.js";
 
-export default class DataProxy extends EventEmitter {
+export default class DataProxy {
     constructor(target, parent, lift = true) {
-        super();
 
-        this.target = target;
         this.parent = parent;
+        this.events = this.parent.events || new EventEmitter();
+        this.target = target;
         this.lift = lift;
 
-        return new Proxy(this.target, {
+        this.data = new Proxy(this.target, {
             get: (target, prop, receiver) => {
                 if (prop === 'keys' && !Array.isArray(this.target)) {
                     return () => Object.keys(target);
@@ -28,11 +28,6 @@ export default class DataProxy extends EventEmitter {
                 if (prop === 'target') {
                     return this.target;
                 }
-                if (prop === 'enum') {
-                    return () => {
-                        return {};
-                    };
-                }
 
                 return target[prop];
             },
@@ -48,29 +43,28 @@ export default class DataProxy extends EventEmitter {
 
                 target[prop] = value;
 
+                // set parent's prop
                 this.lift ? this.parent[prop] = target[prop] : null; // okay party people, it's prop agnostic (and destroying)
 
-                this.parent.emit && this.lift ? this.parent.emit(action, prop, value) : null;
-                this.parent.emit && this.lift ? this.parent.emit(prop, value, action) : null;
-
-                this.emit(action, prop, value);
-                this.emit(prop, value, action);
+                // trigger parent action()
+                this.parent.action ? this.parent.action(action, prop, value) : null;
 
                 return true;
             },
 
             deleteProperty: (target, prop, receiver) => {
                 delete target[prop];
+
+                // delete parent's prop
                 this.lift ? delete this.parent[prop] : null;
-                this.parent.emit && this.lift ? this.parent.emit('delete', prop) : null;
-                this.parent.emit && this.lift ? this.parent.emit(prop, 'delete') : null;
 
-                this.emit('delete', prop);
-                this.emit(prop, 'delete');
-
+                // trigger parent action()
+                this.parent.action ? this.parent.action('delete', prop) : null;
                 return true;
             },
         });
+
+        return this.data;
     }
 
     transformDatatype(field, value) {
@@ -94,6 +88,14 @@ export default class DataProxy extends EventEmitter {
             return value;
 
         return value;
+    }
+
+    on(event, callback) {
+        return this.events.on(event, callback);
+    }
+
+    emit(event, ...args) {
+        return this.events.emit(event, ...args);
     }
 
     getType(value) {

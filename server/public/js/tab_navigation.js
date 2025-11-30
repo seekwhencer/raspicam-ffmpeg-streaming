@@ -1,9 +1,11 @@
 import EventEmitter from "./event_emitter.js";
 
-export default class TabNavigation extends EventEmitter {
+export default class TabNavigation {
     constructor(page) {
-        super();
         this.page = page;
+        this.events = this.page.events || new EventEmitter();
+
+        // slug equals page.tabs[SLUG]
         this.tabs = [
             {name: "Overview", slug: "overview", icon: 'armchair'},
             {name: "Server", slug: "server", icon: 'settings'},
@@ -14,13 +16,6 @@ export default class TabNavigation extends EventEmitter {
             {name: "Monitoring", slug: "monitoring", icon: 'chart-no-axes-combined'},
             {name: "Path Defaults", slug: "path", icon: 'layers-2'}
         ];
-        this.on('select', () => {
-            window.history.pushState({}, "", `#${this.selected}`);
-            this.buttons.forEach(b => b.classList.remove("active"));
-            this.buttons.filter(b => b.slug === this.selected)[0].classList.add("active");
-            this.page.emit('tab', this.tab);
-        });
-
     }
 
     render() {
@@ -41,8 +36,16 @@ export default class TabNavigation extends EventEmitter {
 
         // open the first tab
         if (!this.selected)
-            this.selected = 'overview';
+            this.selected = this.tabs[1].slug;
 
+    }
+
+    on(event, callback) {
+        return this.events.on(event, callback);
+    }
+
+    emit(event, ...args) {
+        return this.events.emit(event, ...args);
     }
 
     get selected() {
@@ -51,7 +54,14 @@ export default class TabNavigation extends EventEmitter {
 
     set selected(val) {
         this._selected = val;
-        this.emit('select', this.tab);
+
+        window.history.pushState({}, "", `#${this.selected}`);
+        this.buttons.forEach(b => b.classList.remove("active"));
+        this.buttons.filter(b => b.slug === this.selected)[0].classList.add("active");
+        this.page.showTab(this.tab);
+
+        //this.page.emit('tab', this.tab);
+        //this.emit('select', this.tab);
     }
 
     get tab() {

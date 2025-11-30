@@ -12,13 +12,18 @@ export default class SRTSettings extends Setting {
             'srtAddress'
         ];
 
-        this.on('create', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
-        this.on('update', (prop, value) => this.settings.created ? this.settings.setGlobalConfig() : null);
-        this.on('delete', (prop) => this.settings.created ? this.settings.setGlobalConfig() : null);
-
         // set the data
         this.setFields();
 
         return this.data;
+    }
+
+    action(action, prop, value) {
+        super.action(action, prop, value);
+
+        if (this.settings.created)
+            this.settings.setGlobalConfig();
+
+        this.settings.action(action, prop, value);
     }
 }

@@ -14,9 +14,6 @@ export default class EventEmitter {
         // unsubscribe function
         return () => {
             const set = this.listeners.get(event);
-
-            console.log('>>> EVENT SET', set);
-
             if (!set) return;
 
             set.delete(callback);
