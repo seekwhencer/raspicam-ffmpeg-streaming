@@ -168,8 +168,30 @@ video {
             }
         }
 
-        .rows {
+        &.rows {
 
+            &:hover {
+                button.clear {
+                    background-color: var(--light-med-bg);
+                }
+            }
+
+            .multi-row {
+                .row {
+                    position: relative;
+                    margin-bottom: 5px;
+
+                    button {
+                        top: 10px;
+                    }
+
+                    &:hover {
+                        button {
+                            background-color: var(--color-primary);
+                        }
+                    }
+                }
+            }
         }
 
         .checkboxes {

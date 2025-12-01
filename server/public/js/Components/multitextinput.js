@@ -8,7 +8,7 @@ export default class MultiTextInput extends Component {
         this.elementTag = 'input';
         this.defaults = {
             type: 'hidden',
-            value: JSON.stringify(this.value)
+            value: this.value
         };
 
         this.init();
@@ -26,50 +26,62 @@ export default class MultiTextInput extends Component {
 
         this.rows = [];
         this.value.forEach(value => {
-            const row = document.createElement('div');
-            row.className = 'row';
+            if (value === '')
+                return;
 
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.value = value;
-            input.name = `input-${this.name}-${value}`;
-            input.oninput = e => this.concatValue();
-            row.append(input);
-
-            // the clear button
-            const clearButton = new Button(this.settings, this.prop, {
-                innerHTML: '🞬',
-                className: 'button clear',
-                onclick: () => input.value = ''
-            }, this.tab);
-            row.append(clearButton.element);
-
-            /*const label = document.createElement("label");
-            label.setAttribute('for', `input-${this.name}-${value}`);
-            label.innerHTML = splitCamelCase(value).toUpperCase();
-            row.append(label);
-*/
+            const row = this.renderRow(value);
             this.inputs.append(row);
             this.rows.push(row);
         });
 
-        //const check = () => this.rows.forEach(row =>  this.settings[this.prop].includes(row.querySelector('input').value) ? row.querySelector('input').checked = true : null);
-        //check();
-        //this.settings.on(this.prop, (value, action) => {
-        //    this.element.value = value;
-        //    check();
-        //});
+        const row = this.renderRow('');
+        this.inputs.append(row);
+        this.rows.push(row);
+    }
 
-        this.element.classList.add('switch');
+    renderRow(value) {
+        const row = document.createElement('div');
+        row.className = 'row';
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = value;
+        input.name = `input-${this.name}-${value}`;
+        input.oninput = e => this.concatValue();
+        row.append(input);
+
+        // the clear button
+        const clearButton = new Button(this.settings, this.prop, {
+            innerHTML: '🞬',
+            className: 'button clear',
+            onclick: (e) => this.clearValue(input)
+        }, this.tab);
+        row.append(clearButton.element);
+
+        return row;
+    };
+
+    clearValue(input) {
+        input.value = '';
+        this.concatValue();
     }
 
     concatValue() {
-        const value = [...this.checkboxes.querySelectorAll('input')].filter(b => b.checked).map(b => b.value);
+        const value = [...this.inputs.querySelectorAll('input[type=text]')].filter(i => i.value !== "").map(i => i.value);
         this.element.value = JSON.stringify(value);
         this.settings[this.prop] = value;
+
+        this.rows = this.inputs.querySelectorAll('.row');
+        [...this.rows].forEach(row => {
+            const input = row.querySelector('input[type=text]');
+            if (input.value === '')
+                row.remove();
+        });
+        const add = this.renderRow('');
+        this.inputs.append(add);
     }
 
-    setValue(value){
+    setValue(value) {
         super.setValue(value);
         this.check();
     }

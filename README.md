@@ -1,6 +1,6 @@
 # 🎥raspicam-ffmpeg-streaming
-Stream and transcode hardware encoded 3 (or maybe 4) webcams on a Raspberry Pi4.  
-Orchestrated with node.js with a tiny web frontend.
+Originally it was an FFmpeg orchestrator with a web UI. Now it’s becoming a dashboard for MediaMTX. The repository name no longer fits, so I’ll probably rename it.
+
 
 ![Screenshot #1](../master/screenshots/screenshot_01.png?raw=true "Screenshot #1")
 
