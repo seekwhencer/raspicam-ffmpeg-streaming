@@ -1,16 +1,15 @@
 import Component from "./component.js";
 import Button from "./button.js";
 
-export default class MultiTextAuth extends Component {
+export default class PermissionsInput extends Component {
     constructor(settings, prop, options = {}, parent) {
         super(settings, prop, options, parent);
 
         this.elementTag = 'input';
         this.defaults = {
             type: 'hidden',
-            value: this.value
+            value: JSON.stringify(this.value)
         };
-
         this.init();
         this.render();
     }
@@ -22,7 +21,7 @@ export default class MultiTextAuth extends Component {
 
     renderTextInputs() {
         this.inputs = document.createElement('div');
-        this.inputs.className = 'multi-row';
+        this.inputs.className = 'multi-row permissions';
 
         this.rows = [];
         this.value.forEach(value => {
@@ -43,43 +42,62 @@ export default class MultiTextAuth extends Component {
         const row = document.createElement('div');
         row.className = 'row';
 
+        const select = document.createElement('select');
+        select.name = `input-${this.name}-action`;
+        select.change = e => this.concatValue();
+
+        ['', 'publish', 'read', 'playback', 'api', 'metrics', 'pprof'].forEach(option => {
+            const o = document.createElement("option");
+            o.innerHTML = o.value = option;
+            select.append(o);
+        });
+        select.oninput = (e) => this.concatValue();
+        select.value = value.action;
+        row.append(select);
+
         const input = document.createElement('input');
         input.type = 'text';
-        input.value = value;
-        input.name = `input-${this.name}-${value}`;
+        input.value = value.path || '';
+        input.name = `input-${this.name}-path`;
         input.oninput = e => this.concatValue();
-        input.placeholder = 'add new ...'
+        input.placeholder = 'path ...';
         row.append(input);
 
         // the clear button
         const clearButton = new Button(this.settings, this.prop, {
             innerHTML: '🞬',
             className: 'button clear',
-            onclick: (e) => this.clearValue(input)
+            onclick: (e) => this.clearRow(row)
         }, this.parent);
         row.append(clearButton.element);
 
         return row;
     };
 
-    clearValue(input) {
-        input.value = '';
-        this.concatValue();
-    }
-
     concatValue() {
-        const value = [...this.inputs.querySelectorAll('input[type=text]')].filter(i => i.value !== "").map(i => i.value);
-        this.element.value = JSON.stringify(value);
-        this.settings[this.prop] = value;
+        const values = [];
+        const rows = [...this.inputs.querySelectorAll('.row')];
+        rows.forEach(row => {
+            const action = row.querySelector('select').value;
+            const path = row.querySelector('input[type=text]').value;
+            action !== '' ? values.push({
+                action: action,
+                path: path,
+            }) : null;
+        });
 
-        this.rows = this.inputs.querySelectorAll('.row');
-        [...this.rows].forEach(row => {
-            const input = row.querySelector('input[type=text]');
-            if (input.value === '')
+        // drop all empty rows
+        rows.forEach(row => {
+            const select = row.querySelector('select');
+            if (select.value === '')
                 row.remove();
         });
-        const add = this.renderRow('');
+        // add new empty row
+        const add = this.renderRow({action: '', path: ''});
         this.inputs.append(add);
+
+        this.element.value = JSON.stringify(values);
+        this.value = values;
     }
 
     setValue(value) {
@@ -91,6 +109,13 @@ export default class MultiTextAuth extends Component {
         this.renderTextInputs();
         this.parent.element.querySelector('.multi-row').remove();
         this.parent.element.append(this.inputs);
+    }
+
+    clearRow(row) {
+        row.remove();
+        const index = this.rows.indexOf(row);
+        delete this.rows[index];
+        this.concatValue();
     }
 }
 

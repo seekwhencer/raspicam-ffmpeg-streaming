@@ -46,7 +46,8 @@ export default class Component {
     }
 
     set value(value) {
-        this.settings[this.prop] = value;
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => this.settings[this.prop] = value, 1000);
     }
 }
 

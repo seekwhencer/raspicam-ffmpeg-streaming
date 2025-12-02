@@ -5,6 +5,7 @@ import CheckboxInput from './checkboxinput.js';
 import SelectInput from './selectinput.js';
 import MultiCheckboxInput from './multicheckboxinput.js';
 import MultiTextInput from './multitextinput.js';
+import PermissionsInput from "./permissions.js";
 
 export default class FormItem extends Component {
     constructor(settings, prop, options = {}, tab) {
@@ -31,6 +32,7 @@ export default class FormItem extends Component {
         // input field
         if (this.dataType === 'string' || this.dataType === 'number') {
             if (this.values) {
+
                 // select input
                 this.item = new SelectInput(this.settings, this.prop, {
                     name: `input-${this.name}`
@@ -45,6 +47,7 @@ export default class FormItem extends Component {
                 }, this);
                 this.element.append(clearButton.element);
             } else {
+
                 // text input
                 this.item = new TextInput(this.settings, this.prop, {
                     name: `input-${this.name}`
@@ -75,18 +78,34 @@ export default class FormItem extends Component {
         }
 
         if (this.dataType === 'array' && !this.values) {
-            this.item = new MultiTextInput(this.settings, this.prop, {
-                name: `input-${this.name}`
-            }, this);
+            // the only special thing
+            if (this.prop === 'authHTTPExclude') {
 
-            this.element.append(this.item.element);
-            this.element.append(this.item.inputs);
-            this.element.classList.add('rows');
+                console.log('YEAH');
+
+                this.item = new PermissionsInput(this.settings, this.prop, {
+                    name: `input-${this.name}`
+                }, this);
+
+                console.log('JOOOOOOOOOO');
+
+                this.element.append(this.item.element);
+                this.element.append(this.item.inputs);
+                this.element.classList.add('rows');
+            } else {
+                this.item = new MultiTextInput(this.settings, this.prop, {
+                    name: `input-${this.name}`
+                }, this);
+
+                this.element.append(this.item.element);
+                this.element.append(this.item.inputs);
+                this.element.classList.add('rows');
+            }
         }
     }
 
     destroy() {
-       // console.log('>>> DESTROYING', this.prop);
+        // console.log('>>> DESTROYING', this.prop);
     }
 
     setValue(value) {

@@ -192,6 +192,31 @@ video {
                     }
                 }
             }
+
+            .permissions {
+                .row {
+                    display: flex;
+                    margin-right: 30px;
+
+                    select {
+                        flex: 1;
+                    }
+                    input {
+                        flex: 3;
+                    }
+
+                    button {
+                        top: 10px;
+                        right: 10px;
+                    }
+
+                    &:hover {
+                        button {
+                            background-color: var(--color-primary);
+                        }
+                    }
+                }
+            }
         }
 
         .checkboxes {
