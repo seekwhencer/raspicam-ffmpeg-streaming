@@ -212,18 +212,7 @@ export default class UserRow {
 
     setUser(user) {
         this.data._.target = user;
-
         this.render();
-
-        //this.render();
-        //this.userName.value = user.user;
-        //this.userPass.value = user.pass;
-        //this.updatePermissions();
-        //this.updateIPS();
-
-        //console.log('????', user);
-        //this.data.target = user;
-        //this.render();
     }
 
     get value() {

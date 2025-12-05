@@ -86,6 +86,12 @@ docker compose up -d
 ![Screenshot #7](../master/screenshots/screenshot_07.png?raw=true "Screenshot #7")
 ![Screenshot #8](../master/screenshots/screenshot_08.png?raw=true "Screenshot #8")
 ![Screenshot #9](../master/screenshots/screenshot_09.png?raw=true "Screenshot #9")
+![Screenshot #10](../master/screenshots/screenshot_10.png?raw=true "Screenshot #10")
+![Screenshot #11](../master/screenshots/screenshot_11.png?raw=true "Screenshot #11")
+![Screenshot #12](../master/screenshots/screenshot_12.png?raw=true "Screenshot #12")
+![Screenshot #13](../master/screenshots/screenshot_13.png?raw=true "Screenshot #13")
+![Screenshot #14](../master/screenshots/screenshot_14.png?raw=true "Screenshot #14")
+![Screenshot #15](../master/screenshots/screenshot_15.png?raw=true "Screenshot #15")
 
 ## 🡆 Hints
 - the Raspberry Pi 4 can handle 3 webcams in 2MP with 3Mbit bitrate each (or more?)
