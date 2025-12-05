@@ -1,3 +1,9 @@
+/**
+ * @TODO
+ * - error message
+ * -
+ *
+ */
 import {
     GeneralSettings,
     AuthSettings,
@@ -43,10 +49,6 @@ export default class Settings {
             this.on('loaded-paths-list', () => this.created ? this.mergePathsList() : null),
             this.on('loaded-users', () => this.created ? this.mergeUsersList() : null)
         ];
-
-        //@TODO
-        //this.on('loaded-paths-list', () => console.log(this.label, 'LOADED PATHS LIST', this.config.paths.length, this.config.paths));
-        //this.on('loaded-users', () => console.log(this.label, 'LOADED USERS', this.config.users.length, this.config.users));
     }
 
     async load() {

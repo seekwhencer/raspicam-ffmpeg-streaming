@@ -31,6 +31,7 @@ export default class SelectInput extends Component {
         }) : null;
 
         this.target.append(this.element);
+        this.setValue(this.value);
 
         // the clear button
         this.clearButton = new Button(this.settings, this.prop, {

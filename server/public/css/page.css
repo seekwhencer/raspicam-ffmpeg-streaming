@@ -242,3 +242,69 @@ video {
         }
     }
 }
+
+.users {
+    margin-top: 150px;
+
+    .user {
+        position: relative;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 500px;
+        margin: 0 auto 10px auto;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--light-border-color);
+
+        .index {
+            position: absolute;
+            left: -200px;
+            top: -10px;
+            font-size: 100px;
+            font-weight: 900;
+        }
+
+        input {
+            width: calc(100% - 20px);
+
+        }
+
+        .field {
+            flex: 0 0 auto;
+            margin-bottom: 10px;
+
+            &.username {
+                flex: 1;
+                input {
+                    font-weight: 800;
+                }
+            }
+
+            &.password {
+                flex: 1;
+            }
+
+            &.permissions {
+                flex: 1;
+
+                .row {
+                    display: flex;
+                    margin-bottom: 5px;
+
+                    select {
+                        flex: 1;
+                    }
+
+                    input {
+                        flex: 3;
+                    }
+                }
+            }
+
+            &.ips {
+                input {
+                    margin-bottom: 5px;
+                }
+            }
+        }
+    }
+}

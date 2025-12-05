@@ -9,9 +9,9 @@ export default class UsersSettings extends Setting {
 
         //
         if (Array.isArray(this.source)) {
-            this.source.forEach(target => this.data.push(target));
+            this.source.forEach(user => this.data.push(user));
         } else {
-            Object.keys(this.source).forEach(key => this.data[key] = this.source[key]);
+            Object.keys(this.source).forEach(index => this.data[index] = this.source[index]);
         }
 
         return this.data;
@@ -19,6 +19,8 @@ export default class UsersSettings extends Setting {
 
     action(action, prop, value) {
         super.action(action, prop, value);
+
+        console.log('HOSSSA', action, prop, value);
 
         if (this.settings.created)
             this.settings.setGlobalConfig();
