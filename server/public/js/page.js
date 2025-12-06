@@ -8,6 +8,7 @@ import OverviewTab from "./Tabs/overview.js";
 import PathDefaultsTab from "./Tabs/path.js";
 import ServerTab from "./Tabs/server.js";
 import UsersTab from "./Tabs/users.js";
+import StreamsTab from "./Tabs/streams.js";
 
 export default class Page {
     constructor() {
@@ -19,9 +20,9 @@ export default class Page {
             overview: new OverviewTab(this),
             server: new ServerTab(this),
             path: new PathDefaultsTab(this),
-            users: new UsersTab(this)
+            users: new UsersTab(this),
+            streams : new StreamsTab(this)
             //sources : new Sources(this),
-            //streams : new Streams(this)
         };
     }
 

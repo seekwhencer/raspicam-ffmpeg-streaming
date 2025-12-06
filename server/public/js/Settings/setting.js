@@ -1,7 +1,7 @@
 import EventEmitter from "../event_emitter.js";
 import DataProxy from "../data_proxy.js";
 
-export default class wSetting {
+export default class Setting {
     constructor(settings, target = {}) {
         this.debug = false;
         this.label = this.constructor.name.toUpperCase();

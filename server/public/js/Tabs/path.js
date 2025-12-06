@@ -20,9 +20,9 @@ export default class PathDefaultsTab extends Tab {
 
         this.navigation = new GroupNavigation(this);
         this.navigation.render();
-        return;
+        //return;
 
-        this.renderGroup();
+        //this.renderGroup();
     }
 
     renderGroup() {

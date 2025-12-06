@@ -17,6 +17,8 @@ export default class Icons extends EventEmitter {
             {name: 'user'},
             {name: 'user-minus'},
             {name: 'user-plus'},
+            {name: 'list-plus'},
+            {name: 'list-minus'},
         ];
     }
 

@@ -55,10 +55,14 @@ video {
 }
 
 .tab-navigation {
-    position: absolute;
-    top: 20px;
+    position: fixed;
+    top: 0;
     width: 100%;
     text-align: center;
+    background-color: var(--page-bg);
+    z-index: 1000;
+    padding: 10px 0 10px 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
     button {
         margin-right: 10px;
@@ -90,9 +94,10 @@ video {
     margin: 100px auto;
 
     .group-navigation {
-        margin-bottom: 30px;
+        padding: 5px 0;
         width: 100%;
         text-align: center;
+        margin-bottom: 20px;
 
         button {
             margin-right: 10px;
@@ -250,10 +255,12 @@ video {
         position: relative;
         flex-wrap: wrap;
         gap: 10px;
-        width: 500px;
-        margin: 0 auto 10px auto;
-        padding-bottom: 10px;
-        border-bottom: 1px solid var(--light-border-color);
+        width: 600px;
+
+        border: 1px solid var(--light-border-color);
+        border-radius: 5px;
+        margin: 0 auto 30px auto;
+        padding: 20px 30px;
 
         .index {
             position: absolute;
@@ -274,11 +281,12 @@ video {
 
             &.username {
                 flex: 1;
+
                 input {
                     font-weight: 800;
                     font-size: 25px;
                     line-height: 50px;
-                    background-color: rgba(0,0,0,0.1);
+                    background-color: rgba(0, 0, 0, 0.1);
                     border: none;
                     border-bottom: 2px solid var(--light-border-color);
                 }
@@ -327,7 +335,7 @@ video {
                 left: 0;
                 top: 0;
                 padding: 8px;
-                background-color: rgba(0,0,0,0.2);
+                background-color: rgba(0, 0, 0, 0.2);
                 border-radius: 3px;
             }
 
@@ -348,7 +356,72 @@ video {
                 left: 0;
                 top: 0;
                 padding: 8px;
-                background-color: rgba(0,0,0,0.2);
+                background-color: rgba(0, 0, 0, 0.2);
+                border-radius: 3px;
+            }
+        }
+    }
+}
+
+.paths {
+    .path {
+        display: flex;
+        border: 1px solid var(--light-border-color);
+        border-radius: 5px;
+        margin-bottom: 30px;
+        padding: 10px 0;
+        position: relative;
+
+
+        .group-navigation {
+            flex: 1;
+            padding: 80px 30px 0 30px;
+
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+        .groups {
+            flex: 5;
+        }
+    }
+
+    button {
+        &.add {
+            margin: auto;
+            display: block;
+            padding-left: 45px;
+            position: relative;
+
+            svg {
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                padding: 8px;
+                background-color: rgba(0, 0, 0, 0.2);
+                border-radius: 3px;
+            }
+        }
+
+        &.delete {
+            position: absolute;
+            left: 30px;
+            bottom: 30px;
+            background-color: var(--color-primary-conter);
+            padding-left: 45px;
+
+            svg {
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                padding: 8px;
+                background-color: rgba(0, 0, 0, 0.2);
                 border-radius: 3px;
             }
         }

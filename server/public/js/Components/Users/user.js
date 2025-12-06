@@ -1,5 +1,4 @@
 import DataProxy from "../../data_proxy.js";
-import Button from "../button.js";
 
 export default class UserRow {
     constructor(index, tab) {
@@ -82,7 +81,7 @@ export default class UserRow {
         this.updatePermissions();
         this.updateIPS();
 
-        return this.element
+        return this.element;
     }
 
     renderPermissions() {
