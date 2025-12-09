@@ -406,6 +406,7 @@ video {
                 border: none;
                 border-bottom: 2px solid var(--light-border-color);
                 padding-left: 20px;
+                width: calc(80% - 100px);
             }
 
             select {
@@ -489,7 +490,6 @@ video {
 
         input[type=text] {
             display: none;
-
         }
 
         &.custom {
@@ -501,9 +501,16 @@ video {
 
             input[type=text] {
                 display: block;
+                width: calc(80% - 56px);
+            }
+        }
+    }
+
+    &.name {
+        &.custom {
+            input[type=text] {
                 width: calc(80% - 70px);
             }
         }
-
     }
 }

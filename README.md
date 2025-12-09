@@ -2,7 +2,9 @@
 Originally it was an FFmpeg orchestrator with a web UI. Now it’s becoming a dashboard for MediaMTX. The repository name no longer fits, so I’ll probably rename it.
 
 
-![Screenshot #1](../master/screenshots/screenshot_01.png?raw=true "Screenshot #1")
+![Screenshot #1](../master/screenshots/screenshot_01.png?raw=true "Screenshot Global Options")
+![Screenshot #10](../master/screenshots/screenshot_01.png?raw=true "Screenshot User List")
+![Screenshot #16](../master/screenshots/screenshot_16.png?raw=true "Screenshot Paths")
 
 ## 🡆 Prerequisites
 - set up you raspberry pi 4 or 5 (expand filesystem, locale)
