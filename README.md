@@ -1,21 +1,12 @@
-# 🎥raspicam-ffmpeg-streaming
-Originally it was an FFmpeg orchestrator with a web UI. Now it’s becoming a dashboard for MediaMTX. The repository name no longer fits, so I’ll probably rename it.
-
+# 🎥mediamtx-uiw
+Configure your mediamtx server per web ui.
 
 ![Screenshot #1](../master/screenshots/screenshot_01.png?raw=true "Screenshot Global Options")
 ![Screenshot #10](../master/screenshots/screenshot_10.png?raw=true "Screenshot User List")
 ![Screenshot #16](../master/screenshots/screenshot_16.png?raw=true "Screenshot Paths")
 
 ## 🡆 Prerequisites
-- set up you raspberry pi 4 or 5 (expand filesystem, locale)
-- plug you webcams (don't forget the external powered usb-hub)
-- install ffmpeg bare metal
-```bash
-sudo apt-get update -y
-sudo apt-get install git curl ffmpeg -y
-```
-
-- install Docker
+install Docker
 ```bash
 cd ~
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -24,42 +15,24 @@ sudo sh ./get-docker.sh
 
 ## 🡆 Get the repository
 ```bash
-git clone https://github.com/seekwhencer/raspicam-ffmpeg-streaming.git raspicam
-cd raspicam
+git clone https://github.com/seekwhencer/mediamtx-ui.git
+cd mediamtx-ui
 
 # build the image
 docker compose build --no-cache
 ```
 
 ## 🡆 Configure
-### Webcams
-- create a folder `data/`
-- place `json` files in there. name it like you want.json.
-- one file for one camera: `cam1.json` for example
-```json
-{
-  "name": "webcam one",
-  "device": "/dev/video0",
-  "input_format": "mjpeg",
-  "rtsp_host": "YOUR_MEDIAMTX_IP",
-  "rtsp_port": "8554",
-  "rtsp_path": "cam1",
-  "size": "1280x720",
-  "framerate": 25,
-  "bitrate": "3M"
-}
-```
-
 ### Mediamtx
 - duplicate mediamtx configuration
 ```bash
-    cp mediamtx.default.yml mediamtx.yml
+cp mediamtx.default.yml mediamtx.yml
 ```
 - edit `mediamtx.yml` if needed (default ports are fine)
 ### Environment
 - duplicate `.env` configuration
 ```bash
-    cp .env.default .env
+cp .env.default .env
 ```
 - edit `.env` if needed (default ports are fine)
 
@@ -67,7 +40,6 @@ docker compose build --no-cache
 - mediamtx server
 ```bash
 # mediamtx server
-cd ~/caspicam
 docker compose -f docker-compose-mediamtx.yml up -d
 ```
 
@@ -97,6 +69,31 @@ docker compose up -d
 ![Screenshot #16](../master/screenshots/screenshot_16.png?raw=true "Screenshot #16")
 
 ## 🡆 Hints
+- set up you raspberry pi 4 or 5 (expand filesystem, locale)
+- plug you webcams (don't forget the external powered usb-hub)
+- install ffmpeg bare metal (this is at the moment the only way to use hardware encoding inside the docker container on a raspberry pi 4+)
+```bash
+sudo apt-get update -y
+sudo apt-get install git curl ffmpeg -y
+```
+### Webcams
+- create a folder `data/`
+- place `json` files in there. name it like you want.json.
+- one file for one camera: `cam1.json` for example
+```json
+{
+  "name": "webcam one",
+  "device": "/dev/video0",
+  "input_format": "mjpeg",
+  "rtsp_host": "YOUR_MEDIAMTX_IP",
+  "rtsp_port": "8554",
+  "rtsp_path": "cam1",
+  "size": "1280x720",
+  "framerate": 25,
+  "bitrate": "3M"
+}
+```
+
 - the Raspberry Pi 4 can handle 3 webcams in 2MP with 3Mbit bitrate each (or more?)
 - for more than 3 webcams you need to lower the resolution or framerate
 - the webcams needs a external powered usb-hub
