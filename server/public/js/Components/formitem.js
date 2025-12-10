@@ -11,6 +11,8 @@ export default class FormItem extends Component {
             className: 'item'
         };
 
+        this.help = this.parent.page.help;
+
         this.init();
         this.render();
     }
@@ -20,14 +22,20 @@ export default class FormItem extends Component {
 
         const label = document.createElement("label");
         label.setAttribute('for', `input-${this.name}`);
-        label.innerHTML = splitCamelCase(this.prop).toUpperCase();
+        label.innerHTML = `${splitCamelCase(this.prop).toUpperCase()}`;
+
+        if (this.help.data[this.prop]) {
+            const helpButton = this.renderHelpButton(this.prop);
+            label.append(helpButton);
+        }
+
         this.element.append(label);
 
         // the input type equals their input class name
         if (this.inputType) {
             this.item = new Inputs[this.inputType](this.settings, this.prop, {}, this);
 
-       // type agnostic
+            // type agnostic
         } else {
             if (this.dataType === 'string' || this.dataType === 'number') {
 
@@ -90,6 +98,10 @@ export default class FormItem extends Component {
 
     setValue(value) {
         this.item.setValue(value);
+    }
+
+    renderHelpButton(prop) {
+        return this.help.renderButton(prop);
     }
 
 }

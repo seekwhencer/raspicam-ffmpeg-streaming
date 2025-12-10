@@ -1,10 +1,10 @@
 # 🎥mediamtx-ui
 Configure your mediamtx server per web ui.
 
-![Screenshot Global Options](../master/screenshots/screenshot_01.png?raw=true "Screenshot Global Options")
-![Screenshot Paths](../master/screenshots/screenshot_10.png?raw=true "Screenshot Paths")
-![Screenshot Path Defaults](../master/screenshots/screenshot_12.png?raw=true "Screenshot Path Defaults")
-![Screenshot Users](../master/screenshots/screenshot_17.png?raw=true "Screenshot Users")
+![Screenshot Global Options](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_01.png?raw=true "Screenshot Global Options")
+![Screenshot Paths](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_10.png?raw=true "Screenshot Paths")
+![Screenshot Path Defaults](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_12.png?raw=true "Screenshot Path Defaults")
+![Screenshot Users](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_17.png?raw=true "Screenshot Users")
 
 ## 🡆 Prerequisites
 install Docker
@@ -69,6 +69,7 @@ docker compose up -d
 ![Screenshot #15](../master/screenshots/screenshot_15.png?raw=true "Screenshot #15")
 ![Screenshot #16](../master/screenshots/screenshot_16.png?raw=true "Screenshot #16")
 ![Screenshot #17](../master/screenshots/screenshot_16.png?raw=true "Screenshot #17")
+![Screenshot #18](../master/screenshots/screenshot_18.png?raw=true "Screenshot #18")
 
 ## 🡆 Hints
 - set up you raspberry pi 4 or 5 (expand filesystem, locale)

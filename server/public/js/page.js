@@ -9,11 +9,13 @@ import PathDefaultsTab from "./Tabs/path.js";
 import ServerTab from "./Tabs/server.js";
 import UsersTab from "./Tabs/users.js";
 import StreamsTab from "./Tabs/streams.js";
+import Help from "./help.js";
 
 export default class Page {
     constructor() {
         this.events = window._EVENTS = new EventEmitter();
         this.icons = new Icons();
+        this.help = new Help(this);
         this.tabNavigation = new TabNavigation(this);
 
         this.tabs = {
