@@ -76,6 +76,19 @@ export default class StreamRow {
                 groupsElement.append(group);
             });
         }
+
+        if (this.group.fields) {
+            const group = document.createElement("div");
+            group.className = "group fields";
+            this.group.fields.forEach(f => {
+                const item = new FormItem(this.data, f, {}, this);
+                group.append(item.element);
+                this.items[f] = item;
+            });
+            groupsElement.append(group);
+        }
+
+
         return groupsElement;
     }
 

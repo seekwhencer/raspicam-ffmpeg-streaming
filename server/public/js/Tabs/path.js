@@ -33,6 +33,12 @@ export default class PathDefaultsTab extends Tab {
         this.groupsElement.className = "groups";
         this.element.append(this.groupsElement);
 
+        this.listeners ? this.listeners.forEach(eject => eject()) : null;
+        this.listeners = [
+            this.settings.on('create', (prop, value) => this.updateItem(prop, value)),
+            this.settings.on('update', (prop, value) => this.updateItem(prop, value))
+        ];
+
         if (this.group.tabs) {
             this.group.tabs.forEach(tab => {
                 const group = document.createElement("div");
@@ -47,12 +53,17 @@ export default class PathDefaultsTab extends Tab {
                 }
                 this.groupsElement.append(group);
             });
+        }
 
-            this.listeners ? this.listeners.forEach(eject => eject()) : null;
-            this.listeners = [
-                this.settings.on('create', (prop, value) => this.updateItem(prop, value)),
-                this.settings.on('update', (prop, value) => this.updateItem(prop, value))
-            ];
+        if (this.group.fields) {
+            const group = document.createElement("div");
+            group.className = "group fields";
+            this.group.fields.forEach(f => {
+                const item = new FormItem(this.settings, f, {}, this);
+                group.append(item.element);
+                this.items[f] = item;
+            });
+            this.groupsElement.append(group);
         }
     }
 

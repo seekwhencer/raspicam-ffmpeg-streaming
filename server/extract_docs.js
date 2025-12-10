@@ -31,7 +31,8 @@ function extractCommentsAndKeys(yamlText) {
             /^Default path settings -> RTP$/,
             /^Default path settings -> Redirect$/,
             /^Default path settings -> Raspberry Pi Camera$/,
-            /^Default path settings -> Hooks$/
+            /^Default path settings -> Hooks$/,
+            /^Default path settings ->$/
         ];
 
         if (line.trim().startsWith('#')) {

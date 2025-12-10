@@ -146,6 +146,16 @@ video {
 
                 }
             }
+
+            &.fields {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-auto-rows: auto;
+                gap: 0;
+
+                .item {
+                }
+            }
         }
     }
 
@@ -157,7 +167,7 @@ video {
         button.clear {
             position: absolute;
             right: 52px;
-            top: 27px;
+            bottom: 16px;
             padding: 0 2px;
             background-color: var(--light-med-bg);
             color: var(--text-light-color);
@@ -438,7 +448,7 @@ video {
             }
 
             button {
-                top: 35px;
+                bottom: 25px;
             }
         }
 
@@ -543,6 +553,7 @@ video {
 
         button {
             opacity: 1;
+
             svg {
                 path {
                     &:nth-child(1) {
