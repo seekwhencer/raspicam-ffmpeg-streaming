@@ -1,0 +1,53 @@
+.item {
+    margin-bottom: 5px;
+
+    &.select-text {
+        select {
+            width: calc(100% - 32px);
+            float: none;
+        }
+
+        input[type=text] {
+            display: none;
+        }
+
+        &.custom {
+            select {
+                width: 20%;
+                margin-right: 5px;
+                float: left;
+            }
+
+            input[type=text] {
+                display: block;
+                width: calc(80% - 56px);
+            }
+        }
+    }
+
+    &.name {
+        &.custom {
+            input[type=text] {
+                width: calc(80% - 70px);
+            }
+        }
+    }
+
+    &.help {
+        label {
+        }
+
+        button {
+            opacity: 1;
+
+            svg {
+                path {
+                    &:nth-child(1) {
+                        stroke: var(--color-primary);
+                        fill: var(--color-primary);
+                    }
+                }
+            }
+        }
+    }
+}

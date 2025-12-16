@@ -1,0 +1,114 @@
+.users {
+    margin-top: 150px;
+
+    .user {
+        position: relative;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 600px;
+
+        border: 1px solid var(--light-border-color);
+        border-radius: 5px;
+        margin: 0 auto 30px auto;
+        padding: 20px 30px;
+
+        .index {
+            position: absolute;
+            left: -200px;
+            top: -10px;
+            font-size: 100px;
+            font-weight: 900;
+        }
+
+        input {
+            width: calc(100% - 20px);
+
+        }
+
+        .field {
+            flex: 0 0 auto;
+            margin-bottom: 10px;
+
+            &.username {
+                flex: 1;
+
+                input {
+                    font-weight: 800;
+                    font-size: 25px;
+                    line-height: 50px;
+                    background-color: rgba(0, 0, 0, 0.1);
+                    border: none;
+                    border-bottom: 2px solid var(--light-border-color);
+                }
+            }
+
+            &.password {
+                flex: 1;
+            }
+
+            &.permissions {
+                flex: 1;
+
+                .row {
+                    display: flex;
+                    margin-bottom: 5px;
+
+                    select {
+                        flex: 1;
+                    }
+
+                    input {
+                        flex: 3;
+                    }
+                }
+            }
+
+            &.ips {
+                input {
+                    margin-bottom: 5px;
+                }
+            }
+        }
+    }
+
+    button {
+        &.add {
+            margin: auto;
+            display: block;
+            padding-left: 45px;
+            position: relative;
+
+            svg {
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                padding: 8px;
+                background-color: rgba(0, 0, 0, 0.2);
+                border-radius: 3px;
+            }
+
+
+        }
+
+        &.delete {
+            position: absolute;
+            left: -200px;
+            top: 150px;
+            background-color: var(--color-primary-conter);
+            padding-left: 45px;
+
+            svg {
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                padding: 8px;
+                background-color: rgba(0, 0, 0, 0.2);
+                border-radius: 3px;
+            }
+        }
+    }
+}

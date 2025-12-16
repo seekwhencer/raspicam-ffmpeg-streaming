@@ -1,0 +1,114 @@
+.paths {
+    .path {
+        display: grid;
+        grid-template-columns: 20% 1fr; /* links fix 20%, rechts flexibel */
+        grid-auto-rows: auto;
+        width: 100%;
+        gap: 8px;
+        align-items: start;
+
+        border: 1px solid var(--light-border-color);
+        border-radius: 5px;
+        margin-bottom: 30px;
+        padding: 10px 0;
+        position: relative;
+
+        .name {
+            grid-column: 2;
+            grid-row: 1;
+            align-self: start;
+            height: 70px;
+
+            &::before {
+                content: "/";
+                position: absolute;
+                font-size: 35px;
+                color: var(--light-border-color);
+                left: 10px;
+                bottom: 8px;
+                width: 20px;
+                height: 50px;
+            }
+
+            input[type=text] {
+                font-weight: 400;
+                font-size: 25px;
+
+                border: none;
+                border-bottom: 2px solid var(--light-border-color);
+                padding-left: 25px;
+                width: calc(80% - 100px);
+            }
+
+            select {
+                font-size: 25px;
+                right: 26px;
+                position: absolute;
+                border: none;
+                border-bottom: 2px solid var(--light-border-color);
+            }
+
+            button {
+                bottom: 25px;
+            }
+        }
+
+        .group-navigation {
+            grid-column: 1;
+            grid-row: 1 / span 2;
+            padding: 20px 30px 0 30px;
+            box-sizing: border-box;
+
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+                padding: 10px 0;
+            }
+        }
+
+        .groups {
+            grid-column: 2;
+            grid-row: 2;
+            align-self: start;
+        }
+    }
+
+    button {
+        &.add {
+            margin: auto;
+            display: block;
+            padding-left: 45px;
+            position: relative;
+
+            svg {
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                padding: 8px;
+                background-color: rgba(0, 0, 0, 0.2);
+                border-radius: 3px;
+            }
+        }
+
+        &.delete {
+            position: absolute;
+            left: 30px;
+            bottom: 20px;
+            background-color: var(--color-primary-conter);
+            padding-left: 45px;
+
+            svg {
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                padding: 8px;
+                background-color: rgba(0, 0, 0, 0.2);
+                border-radius: 3px;
+            }
+        }
+    }
+}
