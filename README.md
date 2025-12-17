@@ -5,6 +5,7 @@ Configure your [mediamtx server](https://mediamtx.org/) with this web ui.
 - Tested on a Raspberry pi 4.
 - At the moment: don't use it reachable from the web. Use it only in a lan scenario.
 
+![Screenshot Overview](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_1.png?raw=true "Screenshot Overview")
 ![Screenshot Global Options](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_01.png?raw=true "Screenshot Global Options")
 ![Screenshot Paths](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_10.png?raw=true "Screenshot Paths")
 ![Screenshot Path Defaults](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_12.png?raw=true "Screenshot Path Defaults")
