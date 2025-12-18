@@ -42,16 +42,48 @@ export default class StreamItem {
         const labelViewersEl = label('Viewers');
         viewersEl.append(labelViewersEl);
 
-        this.viewersEl = document.createElement("div");
-        this.viewersEl.className = 'stream-viewers-number';
-        this.viewersEl.textContent = this.data.readers.length;
-        viewersEl.append(this.viewersEl);
+        this.viewersNumberEl = document.createElement("div");
+        this.viewersNumberEl.className = 'stream-viewers-number';
+        this.viewersNumberEl.textContent = this.data.readers.length;
+        viewersEl.append(this.viewersNumberEl);
         el.append(viewersEl);
 
-
+        //--- video element
         this.video = new Video(this);
         el.append(this.video.render());
         this.video.play();
+
+        //--- bytes
+        const bytesEl = document.createElement("div");
+        bytesEl.className = 'stream-bytes';
+
+        //--- bytes received
+        const bytesReceivedEl = document.createElement("div");
+        bytesReceivedEl.className = 'stream-bytes-received';
+
+        const labelBytesReceivedEl = label('Bytes Received');
+        bytesReceivedEl.append(labelBytesReceivedEl);
+
+        this.bytesReceivedNumberEl = document.createElement("div");
+        this.bytesReceivedNumberEl.className = 'stream-bytes-received-number';
+        this.bytesReceivedNumberEl.textContent = this.data.bytesReceived;
+        bytesReceivedEl.append(this.bytesReceivedNumberEl);
+        bytesEl.append(bytesReceivedEl);
+
+        //--- bytes sent
+        const bytesSentEl = document.createElement("div");
+        bytesSentEl.className = 'stream-bytes-sent';
+
+        const labelBytesSentEl = label('Bytes Sent');
+        bytesSentEl.append(labelBytesSentEl);
+
+        this.bytesSentNumberEl = document.createElement("div");
+        this.bytesSentNumberEl.className = 'stream-bytes-sent-number';
+        this.bytesSentNumberEl.textContent = this.data.bytesSent;
+        bytesSentEl.append(this.bytesSentNumberEl);
+        bytesEl.append(bytesSentEl);
+
+        el.append(bytesEl);
 
 
         return this.element = el;
@@ -89,7 +121,7 @@ export default class StreamItem {
 
     set viewers(value) {
         this._viewers = value;
-        this.viewersEl.textContent = this.viewers;
+        this.viewersNumberEl.textContent = this.viewers;
     }
 
     get bytesReceived() {
@@ -98,7 +130,7 @@ export default class StreamItem {
 
     set bytesReceived(value) {
         this._bytesReceived = value;
-        //this.viewersEl.textContent = this.bytesReceived;
+        this.bytesReceivedNumberEl.textContent = this.bytesReceived;
     }
 
     get bytesSent() {
@@ -107,7 +139,7 @@ export default class StreamItem {
 
     set bytesSent(value) {
         this._bytesSent = value;
-        //this.viewersEl.textContent = this.bytesSent;
+        this.bytesSentNumberEl.textContent = this.bytesSent;
     }
 
 }

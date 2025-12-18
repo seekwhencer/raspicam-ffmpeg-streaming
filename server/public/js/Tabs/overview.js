@@ -11,7 +11,6 @@ export default class OverviewTab extends Tab {
     }
 
     async render() {
-
         // the box
         this.element = document.createElement("div");
         this.element.className = "tab overview";

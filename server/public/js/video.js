@@ -38,6 +38,11 @@ export default class Video {
     play() {
         if (Hls.isSupported()) {
             this.hls = new Hls();
+            /*this.hls.logger = {
+                log : (...args) => console.log(...args),
+                error : (...args) => console.log(...args),
+                warn : (...args) => console.log(...args)
+            };*/
             this.hls.loadSource(this.url);
             this.hls.attachMedia(this.element);
             //this.hls.on(Hls.Events.MANIFEST_PARSED, this.playVideo);
@@ -51,6 +56,7 @@ export default class Video {
     }
 
     destroy() {
+        this.hls.destroy();
         clearInterval(this.restartInterval);
         this.element.remove();
     }
