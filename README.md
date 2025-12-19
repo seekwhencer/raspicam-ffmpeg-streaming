@@ -1,9 +1,30 @@
 # 🎥mediamtx-ui
-Configure your [mediamtx server](https://mediamtx.org/) with this web ui.  
+Configure your [mediamtx server](https://mediamtx.org/) with this dependency free (so far) web ui.
 - It is running in a dockerized setup.
 - The UI has it's own webserver, running in a separate container.  
 - Tested on a Raspberry pi 4.
 - At the moment: don't use it reachable from the web. Use it only in a lan scenario.
+
+> This example setup works perfectly in a local scenario. Don't make it reachable from the web.
+
+## 🡆 Features (at the moment)
+- change ALL(!) **server** properties at runtime
+- change all **path defaults** at runtime
+- add, edit, delete **users** at runtime
+- add, edit, delete **paths** (streams) with all of their properties at runtime
+- view the streams in the browser (hls)
+- dockerized setup for a local scenario
+
+## 🡆 Features (future)
+- persist changes by writing a new yaml.
+- orchestrate mediamtx by node.js (to reload the config or load other configurations)
+- authentication for the frontend
+- config switcher (chose between different configurations)
+- source management
+- add, edit, delete (manage) local usb devices with ffmpeg
+- change usb camera properties (brightness, auto exposure, ...)
+- ... what else?
+
 
 ![Screenshot Overview](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_1.png?raw=true "Screenshot Overview")
 ![Screenshot Global Options](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_01.png?raw=true "Screenshot Global Options")
