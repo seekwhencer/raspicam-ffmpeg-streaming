@@ -37,7 +37,10 @@ export default class Video {
 
     play() {
         if (Hls.isSupported()) {
-            this.hls = new Hls();
+            this.hls = new Hls({
+                enableWorker: true,
+                lowLatencyMode: true,
+            });
             /*this.hls.logger = {
                 log : (...args) => console.log(...args),
                 error : (...args) => console.log(...args),

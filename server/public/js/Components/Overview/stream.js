@@ -61,7 +61,7 @@ export default class StreamItem {
         const bytesReceivedEl = document.createElement("div");
         bytesReceivedEl.className = 'stream-bytes-received';
 
-        const labelBytesReceivedEl = label('Bytes Received');
+        const labelBytesReceivedEl = label('MB Received');
         bytesReceivedEl.append(labelBytesReceivedEl);
 
         this.bytesReceivedNumberEl = document.createElement("div");
@@ -74,7 +74,7 @@ export default class StreamItem {
         const bytesSentEl = document.createElement("div");
         bytesSentEl.className = 'stream-bytes-sent';
 
-        const labelBytesSentEl = label('Bytes Sent');
+        const labelBytesSentEl = label('MB Sent');
         bytesSentEl.append(labelBytesSentEl);
 
         this.bytesSentNumberEl = document.createElement("div");
@@ -130,7 +130,7 @@ export default class StreamItem {
 
     set bytesReceived(value) {
         this._bytesReceived = value;
-        this.bytesReceivedNumberEl.textContent = this.bytesReceived;
+        this.bytesReceivedNumberEl.textContent = (parseInt(this.bytesReceived) / 1048576).toFixed(2);
     }
 
     get bytesSent() {
@@ -139,7 +139,7 @@ export default class StreamItem {
 
     set bytesSent(value) {
         this._bytesSent = value;
-        this.bytesSentNumberEl.textContent = this.bytesSent;
+        this.bytesSentNumberEl.textContent = (parseInt(this.bytesSent) / 1048576).toFixed(2);
     }
 
 }
