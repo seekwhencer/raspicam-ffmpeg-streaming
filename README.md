@@ -12,7 +12,7 @@ Configure your [mediamtx server](https://mediamtx.org/) with this dependency fre
 - change all **path defaults** at runtime
 - add, edit, delete **users** at runtime
 - add, edit, delete **paths** (streams) with all of their properties at runtime
-- view the streams in the browser (hls)
+- view the streams in the browser (chrome, firefox - yes, firefox)
 - dockerized setup for a local scenario
 
 ## 🡆 Features (future)
@@ -145,7 +145,23 @@ Now the Webserver is up on Port: `3000` 🡆 **[http://raspicam:3000](http://ras
 - events + ejecters
 - fail safe inputs by resetting the fields to their previous working values
 
-## 🡆 TODO
+## 🡆 @TODO
+### Feature
 - source management
-- stream view tab
+- recording
+- playback
+- storage management for the recordings
+ 
+### Server
+- override config props from env vars (coming from compose file)
+- locking props from env vars
+- as metrics bridge to the influxdb
+
+### Frontend
+- login
 - responsive
+- locked props
+
+### Infrastructure
+- influxdb 2
+- grafana
