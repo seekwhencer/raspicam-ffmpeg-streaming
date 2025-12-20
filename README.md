@@ -102,7 +102,8 @@ My testing and development setup is still outside at 0°C with some rain.
 I have been plugged three cheap webcams on the Rpi. The Rpi is transcoding all three cams - hardware accelerated with ffmpeg.  
 The mediaMTX server is getting one RTSP stream from an IP cam and these three streams. And it worked.   
 
-The first need to do that was coming with the three hedgehogs in our garden. Every year we raise several young hedgehogs over the winter, which are then released into the wild in the spring.
+The first need to do that was coming with the three hedgehogs in our garden.
+Every year we nurse several young hedgehogs over the winter, which we receive from the wildlife rescue service and then release into the wild in the spring.
 
 ## 🡆 Hints
 - set up you raspberry pi 4 or 5 (expand filesystem, locale)
