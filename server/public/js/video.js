@@ -52,7 +52,6 @@ export default class Video {
             if (data.fatal && data.type === Hls.ErrorTypes.NETWORK_ERROR) {
                 console.log(this.label, `${this.name} NETWORK_ERROR -> retrying in 1s`);
                 setTimeout(() => {
-                    // einfach erneut laden
                     this.hls.loadSource(this.url);
                     this.hls.startLoad();
                 }, 1000);

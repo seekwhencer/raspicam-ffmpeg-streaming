@@ -51,10 +51,7 @@ export default class StreamItem {
         //--- video element
         this.video = new Video(this);
         el.append(this.video.render());
-        const index = this.tab.items.length;
         requestAnimationFrame(() => this.video.init());
-
-        //this.video.play();
 
         //--- bytes
         const bytesEl = document.createElement("div");
