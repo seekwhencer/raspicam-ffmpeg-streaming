@@ -97,6 +97,13 @@ docker compose up -d
 ![Screenshot #17](../master/screenshots/screenshot_16.png?raw=true "Screenshot #17")
 ![Screenshot #18](../master/screenshots/screenshot_18.png?raw=true "Screenshot #18")
 
+This setup is running on a Raspberry Pi 4 with 4GB ram. No Joke.  
+My testing and development setup is still outside at 0°C with some rain.  
+I have been plugged three cheap webcams on the Rpi. The Rpi is transcoding all three cams - hardware accelerated with ffmpeg.  
+The mediaMTX server is getting one RTSP stream from an IP cam and these three streams. And it worked.   
+
+The first need to do that was coming with the three hedgehogs in our garden. Every year we raise several young hedgehogs over the winter, which are then released into the wild in the spring.
+
 ## 🡆 Hints
 - set up you raspberry pi 4 or 5 (expand filesystem, locale)
 - plug you webcams (don't forget the external powered usb-hub)
@@ -158,6 +165,7 @@ Now the Webserver is up on Port: `3000` 🡆 **[http://raspicam:3000](http://ras
 - as metrics bridge to the influxdb
 
 ### Frontend
+- hooks as textarea
 - login
 - responsive
 - locked props
