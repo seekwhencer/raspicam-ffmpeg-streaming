@@ -1,66 +1,91 @@
 export default class Video {
     constructor(stream) {
         this.label = this.constructor.name.toUpperCase();
-
         this.stream = stream;
-        this.name = this.stream.data.confName;
+        this.name = stream.data.confName;
         this.url = `http://raspicam:8888/${this.name}/index.m3u8`;
+
+        this.hls = null;
     }
 
     render() {
         this.element = document.createElement('video');
-        //this.element.setAttribute('controls', 'controls');
-        this.element.autoplay = true;
-        this.element.setAttribute('muted', 'muted');
         this.element.className = 'cam';
         this.element.id = this.name;
 
-        this.loaded = false;
-        this.element.onclick = e => this.play();
+        this.element.autoplay = true;
+        this.element.muted = true;
+        this.element.setAttribute('muted', '');   // Firefox
+        this.element.playsInline = true;
+        this.element.setAttribute('playsinline', '');
 
-        /*this.restartInterval = setInterval(() => {
-            const v = this.element;
-            console.log(this.label, this.name, 'RETRYING');
-
-            if (v.buffered.length !== 1 && v.played.length !== 1)
-                //this.element.play();
-                this.play();
-
-            if (v.buffered.length === 1 && v.played.length === 1)
-                clearInterval(this.restartInterval);
-
-        }, 3000);*/
-
-        //this.play();
+        this.element.addEventListener('click', () => this.toggle());
         return this.element;
     }
 
-    play() {
-        if (Hls.isSupported()) {
-            this.hls = new Hls({
-                enableWorker: true,
-                lowLatencyMode: true,
-            });
-            /*this.hls.logger = {
-                log : (...args) => console.log(...args),
-                error : (...args) => console.log(...args),
-                warn : (...args) => console.log(...args)
-            };*/
+    init() {
+        if (this.hls) return;
+
+        this.hls = new Hls({
+            enableWorker: true,
+            lowLatencyMode: false,
+            maxBufferLength: 10,
+            //liveSyncDuration: 3,
+            //liveMaxLatencyDuration: 6,
+            //maxLiveSyncPlaybackRate: 1.0
+        });
+
+        this.hls.attachMedia(this.element);
+
+        this.hls.on(Hls.Events.MEDIA_ATTACHED, () => {
             this.hls.loadSource(this.url);
-            this.hls.attachMedia(this.element);
-            //this.hls.on(Hls.Events.MANIFEST_PARSED, this.playVideo);
-        } else {
-            this.element.src = this.url;
-        }
+        });
+
+        this.hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            this.element.play().catch(() => {});
+        });
+
+        // Retry-Handler bei Netzwerk-Fehlern
+        this.hls.on(Hls.Events.ERROR, (event, data) => {
+            console.log(this.label, `${this.name} HLS ERROR:`, data);
+
+            if (data.fatal && data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+                console.log(this.label, `${this.name} NETWORK_ERROR -> retrying in 1s`);
+                setTimeout(() => {
+                    // einfach erneut laden
+                    this.hls.loadSource(this.url);
+                    this.hls.startLoad();
+                }, 1000);
+            }
+
+            if (data.fatal && data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+                console.log(this.label, `${this.name} MEDIA_ERROR -> recover media error`);
+                this.hls.recoverMediaError();
+            }
+        });
     }
 
-    playVideo(){
+
+    play() {
         this.element.play();
     }
 
+    pause() {
+        this.element.pause();
+    }
+
+    toggle() {
+        this.element.paused ? this.element.play() : this.element.pause();
+    }
+
     destroy() {
-        this.hls.destroy();
-        clearInterval(this.restartInterval);
+        this.pause();
+
+        if (this.hls) {
+            this.hls.destroy();
+            this.hls = null;
+        }
+
         this.element.remove();
     }
 }
