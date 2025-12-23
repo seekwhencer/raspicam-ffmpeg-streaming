@@ -3,7 +3,6 @@
 
     &.select-text {
         select {
-            width: calc(100% - 32px);
             float: none;
         }
 
@@ -20,7 +19,7 @@
 
             input[type=text] {
                 display: block;
-                width: calc(80% - 56px);
+                width: calc(80% - 27px);
             }
         }
     }

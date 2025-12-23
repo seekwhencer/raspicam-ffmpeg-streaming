@@ -1,9 +1,11 @@
 .tab.overview {
+    width: initial;
+    margin: 110px 30px;
 
     .streams {
         display: grid;
         grid-auto-columns: 1fr;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: var(--space-xxl);
         grid-auto-flow: row;
 

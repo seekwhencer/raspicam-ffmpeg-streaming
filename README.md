@@ -29,8 +29,8 @@ Configure your [mediamtx server](https://mediamtx.org/) with this dependency fre
 ![Screenshot Overview](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_1.png?raw=true "Screenshot Overview")
 ![Screenshot Global Options](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_01.png?raw=true "Screenshot Global Options")
 ![Screenshot Paths](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_10.png?raw=true "Screenshot Paths")
-![Screenshot Path Defaults](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_12.png?raw=true "Screenshot Path Defaults")
-![Screenshot Users](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_17.png?raw=true "Screenshot Users")
+![Screenshot Path Defaults](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_15.png?raw=true "Screenshot Path Defaults")
+![Screenshot Users](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_20.png?raw=true "Screenshot Users")
 
 ## 🡆 Prerequisites
 install Docker
@@ -96,6 +96,8 @@ docker compose up -d
 ![Screenshot #16](../master/screenshots/screenshot_16.png?raw=true "Screenshot #16")
 ![Screenshot #17](../master/screenshots/screenshot_16.png?raw=true "Screenshot #17")
 ![Screenshot #18](../master/screenshots/screenshot_18.png?raw=true "Screenshot #18")
+![Screenshot #19](../master/screenshots/screenshot_19.png?raw=true "Screenshot #19")
+![Screenshot #20](../master/screenshots/screenshot_20.png?raw=true "Screenshot #20")
 
 This setup is running on a Raspberry Pi 4 with 4GB ram. No Joke.  
 My testing and development setup is still outside at 0°C with some rain.  
