@@ -1,4 +1,5 @@
 import express from "express";
+import ConfigRoutes from "./Config.js";
 import OverviewRoutes from "./Overview.js";
 import ServerRoutes from "./Server.js";
 import PathRoutes from "./Path.js";
@@ -21,6 +22,10 @@ export default class Routes {
             ];
             return res.status(200).json({availableRoutes});
         });
+
+        // config
+        this.configRoutes = new ConfigRoutes(this);
+        this.router.use(this.configRoutes.router);
 
         // overview
         this.overviewRoutes = new OverviewRoutes(this);

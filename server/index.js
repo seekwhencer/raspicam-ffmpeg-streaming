@@ -1,12 +1,16 @@
 import path from "path";
 
 import Events from './lib/EventEmitter.js';
+import Config from './lib/Config.js';
 import Server from "./lib/Server.js";
 import Streams from "./lib/Streams.js";
 
 export default class Main extends Events {
     constructor() {
         super();
+        this.__dirname = process.cwd();
+        this.dataDir = path.join(this.__dirname, "../data");
+        this.publicDir = path.join(this.__dirname, "public");
 
         process.on('SIGINT', async () => {
             console.log('Stoppe…');
@@ -14,10 +18,7 @@ export default class Main extends Events {
             process.exit(0);
         });
 
-        this.__dirname = process.cwd();
-        this.dataDir = path.join(this.__dirname, "../data");
-        this.publicDir = path.join(this.__dirname, "public");
-
+        this.config = new Config(this);
         this.streams = new Streams(this);
         this.server = new Server(this);
 

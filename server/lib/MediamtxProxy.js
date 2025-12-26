@@ -67,12 +67,6 @@ export default class MediamtxProxy {
             }
 
             const response = await fetch(targetUrl, fetchOptions);
-
-            // Response-Header weiterreichen
-            response.headers.forEach((value, key) => {
-                res.setHeader(key, value);
-            });
-
             const text = await response.text();
 
             try {
@@ -92,7 +86,7 @@ export default class MediamtxProxy {
     _register() {
         const r = this.router;
 
-        r.use(express.json({ limit: "10mb" }));
+        //r.use(express.json({ limit: "10mb" }));
 
         const routes = [
             'GET /info',
