@@ -1,8 +1,11 @@
 import express from "express";
+import session from "express-session";
+import csrf from "csurf";
 
 import Events from './EventEmitter.js';
 import MediamtxProxy from "./MediamtxProxy.js";
 import Routes from "./Routes/index.js";
+import AuthRoutes from "./Routes/Auth.js";
 
 export default class Server extends Events {
     constructor(app) {
@@ -16,6 +19,28 @@ export default class Server extends Events {
         this.engine = express();
         this.engine.use(express.json());
         this.engine.use(express.static(this.publicDir));
+
+        this.csrfProtection = csrf();
+
+        this.engine.set("trust proxy", 1);
+
+        // session cookie
+        this.engine.use(session({
+            name: "sid",
+            secret: process.env.SESSION_SECRET || 'hossadiewaldfee',
+            resave: false,
+            saveUninitialized: false,
+            cookie: {
+                httpOnly: true,
+                sameSite: "lax",
+                secure: process.env.NODE_ENV === "production",
+                path: "/"
+            }
+        }));
+
+        // authentication
+        this.authRoutes = new AuthRoutes(this);
+        this.engine.use('/auth', this.authRoutes.router);
 
         // the mediamtx api proxy
         this.mediamtxProxy = new MediamtxProxy(this, {
