@@ -9,9 +9,9 @@ export default class TabNavigation {
         this.tabs = [
             {name: "Overview", slug: "overview", icon: 'armchair'},
 
-            {name: "Server", slug: "server", icon: 'settings'},
-            //{name: "Sources", slug: "sources", icon: 'shrink'},
             {name: "Streams", slug: "streams", icon: 'expand'},
+           //{name: "Sources", slug: "sources", icon: 'shrink'},
+            {name: "Server", slug: "server", icon: 'settings'},
             //{name: "Playback", slug: "playback", icon: 'play'},
             //{name: "Recording", slug: "recording", icon: 'circle'},
             //{name: "Monitoring", slug: "monitoring", icon: 'chart-no-axes-combined'},

@@ -41,6 +41,8 @@ export default class Settings {
         this.replacePathUrl = `${this.pathBaseUrl}/replace`;
         this.deletePathUrl = `${this.pathBaseUrl}/delete`;
 
+        this.saveYAMLUrl = `/api/config/save`;
+
         this.created = false;
 
         this.listeners = [
@@ -127,6 +129,13 @@ export default class Settings {
 
     async update() {
         console.log(this.label, 'UPDATE AFTER LOADING CONFIG');
+    }
+
+    async save() {
+        const res = await fetch(this.saveYAMLUrl);
+        const text = await res.text();
+        const response = await JSON.parse(text);
+        console.log(this.label, 'SAVE YAML RESPONSE', response);
     }
 
     // complete

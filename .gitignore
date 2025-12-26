@@ -5,5 +5,7 @@ data/**/*
 mediamtx.yml
 server/public/js/Settings/**/*
 /script
+/config/backup/**/*
 
 !data/default.json
+!.gitkeep

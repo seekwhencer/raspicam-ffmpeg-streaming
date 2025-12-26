@@ -16,6 +16,6 @@ services:
       - "${WEBRTC_UDP_PORT}:${WEBRTC_UDP_PORT}/udp" # WebRTC ICE/UDP
 #      - "${API_PORT}:${API_PORT}"                   # API
     volumes:
-      - ./mediamtx.yml:/mediamtx.yml:ro
+      - ./config/mediamtx.yml:/mediamtx.yml:ro
     networks:
       - camnet

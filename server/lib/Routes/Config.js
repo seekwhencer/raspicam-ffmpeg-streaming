@@ -13,8 +13,18 @@ export default class ConfigRoutes {
         // get config YAML
         this.router.get('/config', async (req, res) => {
             const yml = await this.config.getYaml();
-            await this.config.writeYaml();
             return res.status(200).send(yml);
+        });
+
+        // save config YAML to disk
+        this.router.get('/config/save', async (req, res) => {
+            try {
+                await this.config.writeYaml();
+                return res.status(200).send({status: 'ok'});
+            } catch(e) {
+                return res.status(200).send({error: e.message});
+            }
+
         });
     }
 }

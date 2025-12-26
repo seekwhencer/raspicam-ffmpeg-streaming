@@ -19,7 +19,16 @@ export default class Config {
         paths.items.forEach(p => pathObj[p.name] = p);
 
         const config = {...globalConfig, pathDefaults, paths: pathObj};
-        const yml = stringify(config);
+        let yml = stringify(config,{
+            doubleQuotedAsJSON: true,
+            trueStr: 'true',
+            falseStr: 'false',
+        });
+
+        yml = yml
+            .replaceAll('rtspEncryption: no', 'rtspEncryption: "no"')
+            .replaceAll('rtmpEncryption: no', 'rtmpEncryption: "no"')
+            .replaceAll('rpiCameraDenoise: off', 'rpiCameraDenoise: "off"');
 
         return yml;
     }

@@ -20,6 +20,7 @@ export default class Icons extends EventEmitter {
             {name: 'list-plus'},
             {name: 'list-minus'},
             {name: 'message-circle-question-mark'},
+            {name: 'package-check'},
         ];
     }
 

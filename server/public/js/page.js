@@ -7,6 +7,7 @@ import Help from "./help.js";
 import TabNavigation from "./tab_navigation.js";
 import * as Tabs from "./Tabs/index.js";
 
+
 export default class Page {
     constructor() {
         this.events = window._EVENTS = new EventEmitter();
