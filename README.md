@@ -6,20 +6,17 @@ Configure your [mediamtx server](https://mediamtx.org/) with this dependency fre
 - At the moment: don't use it reachable from the web. Use it only in a lan scenario.
 
 > This example setup works perfectly in a local scenario. Don't make it reachable from the web.
-  
-> At the moment, you can't persist the changes you made in the UI. So after a restart of the mediamtx server, all changes are lost.
-> This feature is coming soon. Actually I'm working on it. Only changing props at runtime is possible at the moment.
 
 ## 🡆 Features (at the moment)
 - change ALL(!) **server** properties at runtime
 - change all **path defaults** at runtime
 - add, edit, delete **users** at runtime
 - add, edit, delete **paths** (streams) with all of their properties at runtime
+- persist changes by writing a new yaml
 - view the streams in the browser (chrome, firefox - yes, firefox)
 - dockerized setup for a local scenario
 
 ## 🡆 Features (future)
-- persist changes by writing a new yaml.
 - orchestrate mediamtx by node.js (to reload the config or load other configurations)
 - authentication for the frontend
 - config switcher (chose between different configurations)
