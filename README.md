@@ -6,6 +6,9 @@ Configure your [mediamtx server](https://mediamtx.org/) with this dependency fre
 - At the moment: don't use it reachable from the web. Use it only in a lan scenario.
 
 > This example setup works perfectly in a local scenario. Don't make it reachable from the web.
+  
+> At the moment, you can't persist the changes you made in the UI. So after a restart of the mediamtx server, all changes are lost.
+> This feature is coming soon. Actually I'm working on it. Only changing props at runtime is possible at the moment.
 
 ## 🡆 Features (at the moment)
 - change ALL(!) **server** properties at runtime
@@ -27,6 +30,13 @@ Configure your [mediamtx server](https://mediamtx.org/) with this dependency fre
 
 
 ![Screenshot Overview](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_1.png?raw=true "Screenshot Overview")
+- Top Left: RTSP IP Cam Stream
+- Top Middle: Raspi (A) USB Webcam 1
+- Top Right: Raspi (A) USB Webcam 2
+- Bottom Left: Raspi (A) USB Webcam 3
+- Bottom Middle: RTMP Stream from OBS Studio
+- Bottom Right: Raspi (B) Elgato Cam Link 4K Stream from DSLR-Camera (second local mediaMTX server)
+
 ![Screenshot Global Options](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_01.png?raw=true "Screenshot Global Options")
 ![Screenshot Paths](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_10.png?raw=true "Screenshot Paths")
 ![Screenshot Path Defaults](https://raw.githubusercontent.com/seekwhencer/mediamtx-ui/refs/heads/master/screenshots/screenshot_15.png?raw=true "Screenshot Path Defaults")
